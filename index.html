@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+  <meta name="google-site-verification" content="FZ18MBiSpPfiqsAEv7FEgdIqAbeyXGT3qnnomLAhP6Q" />
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#F5F1EA">
@@ -100,10 +101,7 @@
         <span class="live-dot"></span>
         FIND YOUR KOREA
       </span>
-<span style="font-size:12px; color:#666;">
-  현재 접속자 수 
-  <strong id="demoOnlineCount">250</strong>명
-</span>
+
       <label class="sr-only" for="languageSelect">
         언어 선택
       </label>
@@ -114,37 +112,7 @@
         <option value="zh">中文</option>
         <option value="ja">日本語</option>
       </select>
-    </div><div id="memberAuth" style="display:flex; flex-direction:column; gap:5px; max-width:220px;">
-  <div style="display:flex; align-items:center; gap:8px;">
-    <button
-      type="button"
-      id="kakaoLoginBtn"
-      disabled
-      style="background:#FEE500; color:#191919; border:0; border-radius:8px; padding:10px 14px; font:inherit; font-size:13px; font-weight:700; cursor:pointer;"
-    >
-      카카오로 시작하기
-    </button>
-
-    <span
-      id="memberNickname"
-      hidden
-      style="max-width:110px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:13px;"
-    ></span>
-
-    <button
-      type="button"
-      id="logoutBtn"
-      hidden
-      style="background:#fff; color:#333; border:1px solid #ddd; border-radius:8px; padding:8px 10px; font:inherit; font-size:12px; cursor:pointer;"
-    >
-      로그아웃
-    </button>
-  </div>
-
-  <small id="authStatus" role="status" aria-live="polite" style="font-size:10px; line-height:1.5;">
-    처음 로그인하면 회원가입이 함께 진행됩니다.
-  </small>
-</div>
+    </div>
 
   </header>
 
@@ -943,27 +911,10 @@
        SCRIPTS
        기존 JavaScript 파일 연결 유지
        ======================================== -->
-<script src="./auth.js"></script>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="./data.js"></script>
   <script src="./main.js"></script>
-<script>
-(() => {
-  const counter = document.getElementById("demoOnlineCount");
-  let count = 200 + Math.floor(Math.random() * 101);
 
-  function updateCount() {
-    counter.textContent = count;
-  }
-
-  updateCount();
-
-  setInterval(() => {
-    const change = Math.floor(Math.random() * 11) - 5;
-    count = Math.max(200, Math.min(300, count + change));
-    updateCount();
-  }, 5000);
-})();
-</script>
 </body>
 </html>
