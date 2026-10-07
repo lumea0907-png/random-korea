@@ -1,12 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta name="google-site-verification" content="FZ18MBiSpPfiqsAEv7FEgdIqAbeyXGT3qnnomLAhP6Q" />
   <meta charset="UTF-8">
+  <meta name="google-site-verification" content="FZ18MBiSpPfiqsAEv7FEgdIqAbeyXGT3qnnomLAhP6Q">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#F5F1EA">
   <meta name="description" content="랜덤코리아에서 다음 한국 여행지를 발견하고 새로운 맛집과 여행 코스를 찾아보세요.">
+
   <title>랜덤코리아 | 오늘의 여행을 발견하다</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,14 +15,17 @@
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="./style.css">
+
+  <style>
+    #memberAuth [hidden] {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- ========================================
-       LUMEA 좌우 광고 영역
-       ======================================== -->
-
+  <!-- LUMEA 왼쪽 광고 -->
   <aside class="side-ad side-ad-left" aria-label="LUMEA 광고">
     <div class="side-ad-box">
       <span class="side-ad-brand">LUMEA</span>
@@ -39,16 +42,15 @@
         매장을 홍보해보세요.
       </p>
 
-      <a
-        href="http://pf.kakao.com/_sNvJX"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="http://pf.kakao.com/_sNvJX"
+         target="_blank"
+         rel="noopener noreferrer">
         광고 문의하기 <span>↗</span>
       </a>
     </div>
   </aside>
 
+  <!-- LUMEA 오른쪽 광고 -->
   <aside class="side-ad side-ad-right" aria-label="LUMEA 광고">
     <div class="side-ad-box">
       <span class="side-ad-brand">LUMEA</span>
@@ -65,25 +67,18 @@
         여행객에게 소개합니다.
       </p>
 
-      <a
-        href="http://pf.kakao.com/_sNvJX"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="http://pf.kakao.com/_sNvJX"
+         target="_blank"
+         rel="noopener noreferrer">
         LUMEA 광고 문의 <span>↗</span>
       </a>
     </div>
   </aside>
 
-  <!-- ========================================
-       HEADER
-       ======================================== -->
-
+  <!-- 상단 메뉴 -->
   <header class="site-header">
-
     <a class="brand" href="#" aria-label="랜덤코리아 홈">
       <span class="brand-icon">✳</span>
-
       <span class="brand-copy">
         <strong>랜덤코리아</strong>
         <small>RANDOM KOREA</small>
@@ -96,15 +91,21 @@
       <a href="#advertise">업체 입점</a>
     </nav>
 
-    <div class="header-tools">
+    <div class="header-tools"
+         style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end;">
+
       <span class="header-tag">
         <span class="live-dot"></span>
         FIND YOUR KOREA
       </span>
 
-      <label class="sr-only" for="languageSelect">
-        언어 선택
-      </label>
+      <span id="demoOnline"
+            style="font-size:12px; white-space:nowrap;"
+            title="실제 접속자 집계가 아닌 화면 예시입니다.">
+        현재 접속자 수  <strong id="demoOnlineCount">250</strong>명
+      </span>
+
+      <label class="sr-only" for="languageSelect">언어 선택</label>
 
       <select id="languageSelect" aria-label="언어 선택">
         <option value="ko">한국어</option>
@@ -112,22 +113,49 @@
         <option value="zh">中文</option>
         <option value="ja">日本語</option>
       </select>
+
+      <!-- 회원가입 및 로그인 -->
+      <div id="memberAuth"
+           style="display:flex; flex-direction:column; gap:5px; max-width:240px;">
+
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <button
+            type="button"
+            id="kakaoLoginBtn"
+            style="background:#FEE500; color:#191919; border:0; border-radius:10px; padding:12px 16px; font:inherit; font-weight:700; cursor:pointer;"
+            disabled>
+            카카오로 시작하기
+          </button>
+
+          <span
+            id="memberNickname"
+            hidden
+            style="font-size:14px; font-weight:700;">
+          </span>
+
+          <button
+            type="button"
+            id="logoutBtn"
+            hidden
+            style="border:1px solid #ddd; background:#fff; border-radius:8px; padding:8px 10px; font:inherit; cursor:pointer;">
+            로그아웃
+          </button>
+        </div>
+
+        <small id="authStatus"
+               role="status"
+               style="font-size:11px;">
+          로그인 상태 확인 중…
+        </small>
+      </div>
     </div>
-
   </header>
-
-  <!-- ========================================
-       MAIN
-       ======================================== -->
 
   <main>
 
-    <!-- HERO -->
-
+    <!-- 첫 화면 -->
     <section class="hero page-container">
-
       <div class="hero-copy">
-
         <span class="eyebrow">
           <span class="eyebrow-line"></span>
           YOUR NEXT ADVENTURE
@@ -149,33 +177,27 @@
             <span class="highlight-icon">✳</span>
             새로운 여행지 발견
           </span>
-
           <span>
             <span class="highlight-icon">⌖</span>
             전국 지역 탐색
           </span>
-
           <span>
             <span class="highlight-icon">♡</span>
             나만의 여행 코스
           </span>
         </div>
-
       </div>
 
       <div class="hero-art" aria-label="한국 여행 풍경">
-
         <img
           src="https://images.unsplash.com/photo-1538485399081-7c8a6e3a7b87?auto=format&fit=crop&w=1200&q=85"
           alt="한국 여행의 분위기를 담은 풍경"
-          onerror="this.style.display='none'"
-        >
+          onerror="this.style.display='none'">
 
         <div class="hero-art-shade"></div>
 
         <div class="hero-note">
           <span class="hero-note-icon">✦</span>
-
           <span>
             <small>YOUR TRIP STARTS HERE</small>
             <strong>
@@ -188,112 +210,66 @@
         <span class="hero-art-caption">
           EXPLORE · DISCOVER · ENJOY
         </span>
-
       </div>
-
     </section>
 
-    <!-- ========================================
-         TRAVEL
-         ======================================== -->
-
+    <!-- 여행지 추천 -->
     <section class="page-container travel-section" id="travel">
-
       <div class="section-heading">
-
         <div>
           <span class="eyebrow">RANDOM DESTINATION</span>
-
           <h2>나의 다음 여행지</h2>
-
-          <p>
-            지역과 테마를 선택하고, 오늘의 여행지를 뽑아보세요.
-          </p>
+          <p>지역과 테마를 선택하고, 오늘의 여행지를 뽑아보세요.</p>
         </div>
-
         <span class="section-number">01 / DISCOVER</span>
-
       </div>
 
       <div class="workspace">
 
         <!-- 지도 -->
-
         <section class="map-card panel">
-
           <div class="panel-heading map-heading">
-
             <div>
               <span class="panel-kicker">EXPLORE THE MAP</span>
-
               <h2>대한민국 여행 지도</h2>
-
-              <p>
-                지도에서 추천 지역을 확인해 보세요.
-              </p>
+              <p>지도에서 추천 지역을 확인해 보세요.</p>
             </div>
-
-            <span class="status-pill" id="mapStatus">
-              지도 연결 중
-            </span>
-
+            <span class="status-pill" id="mapStatus">지도 연결 중</span>
           </div>
 
           <div id="map" aria-label="대한민국 여행 지도"></div>
 
           <div class="map-bottom">
-
             <div class="map-legend">
               <span class="legend-dot"></span>
               <span>여행 지역</span>
-
               <span class="legend-line"></span>
               <span>추천 지역 경계</span>
             </div>
 
-            <button
-              type="button"
-              class="text-button"
-              id="resetMapBtn"
-            >
+            <button type="button" class="text-button" id="resetMapBtn">
               <span>↺</span>
               전국 보기
             </button>
-
           </div>
 
-          <p
-            id="mapNotice"
-            class="map-notice"
-            aria-live="polite"
-          >
+          <p id="mapNotice" class="map-notice" aria-live="polite">
             지도를 준비하고 있습니다.
           </p>
-
         </section>
 
-        <!-- 랜덤 설정 -->
-
+        <!-- 추천 조건 -->
         <section class="control-card panel">
-
           <div class="control-title-row">
-
             <div>
               <span class="panel-kicker">MAKE IT RANDOM</span>
-
               <h2>어디로 떠나볼까요?</h2>
-
-              <p>
-                취향에 맞는 조건을 골라주세요.
-              </p>
+              <p>취향에 맞는 조건을 골라주세요.</p>
             </div>
-
             <span class="dice-badge">🎲</span>
-
           </div>
 
           <div class="control-group">
-
             <label class="field-label" for="scopeSelect">
               <span class="field-icon">⌖</span>
               여행 지역 범위
@@ -303,171 +279,115 @@
               <option value="wide">전국 시·도 단위</option>
               <option value="detail">시·군·구 단위</option>
             </select>
-
           </div>
 
           <div class="control-group">
-
             <span class="field-label">
               <span class="field-icon">✳</span>
               여행 테마
             </span>
 
             <div class="theme-options" id="themeOptions">
-
-              <button
-                type="button"
-                class="theme-button active"
-                data-theme="all"
-                aria-pressed="true"
-              >
-                <span>✦</span>
-                전체
+              <button type="button"
+                      class="theme-button active"
+                      data-theme="all"
+                      aria-pressed="true">
+                <span>✦</span> 전체
               </button>
 
-              <button
-                type="button"
-                class="theme-button"
-                data-theme="nature"
-                aria-pressed="false"
-              >
-                <span>🌿</span>
-                자연
+              <button type="button"
+                      class="theme-button"
+                      data-theme="nature"
+                      aria-pressed="false">
+                <span>🌿</span> 자연
               </button>
 
-              <button
-                type="button"
-                class="theme-button"
-                data-theme="food"
-                aria-pressed="false"
-              >
-                <span>🍜</span>
-                먹거리
+              <button type="button"
+                      class="theme-button"
+                      data-theme="food"
+                      aria-pressed="false">
+                <span>🍜</span> 먹거리
               </button>
 
-              <button
-                type="button"
-                class="theme-button"
-                data-theme="ocean"
-                aria-pressed="false"
-              >
-                <span>🌊</span>
-                바다
+              <button type="button"
+                      class="theme-button"
+                      data-theme="ocean"
+                      aria-pressed="false">
+                <span>🌊</span> 바다
               </button>
 
-              <button
-                type="button"
-                class="theme-button"
-                data-theme="culture"
-                aria-pressed="false"
-              >
-                <span>🏛️</span>
-                문화
+              <button type="button"
+                      class="theme-button"
+                      data-theme="culture"
+                      aria-pressed="false">
+                <span>🏛️</span> 문화
               </button>
-
             </div>
-
           </div>
 
           <div class="control-group">
-
             <span class="field-label">
               <span class="field-icon">♧</span>
               함께하는 여행 인원
             </span>
 
             <div class="party-options" id="partyOptions">
-
-              <button
-                type="button"
-                class="party-chip active"
-                data-party="1"
-                aria-pressed="true"
-              >
+              <button type="button"
+                      class="party-chip active"
+                      data-party="1"
+                      aria-pressed="true">
                 혼자
               </button>
 
-              <button
-                type="button"
-                class="party-chip"
-                data-party="2"
-                aria-pressed="false"
-              >
+              <button type="button"
+                      class="party-chip"
+                      data-party="2"
+                      aria-pressed="false">
                 2인
               </button>
 
-              <button
-                type="button"
-                class="party-chip"
-                data-party="3-4"
-                aria-pressed="false"
-              >
+              <button type="button"
+                      class="party-chip"
+                      data-party="3-4"
+                      aria-pressed="false">
                 3~4인
               </button>
 
-              <button
-                type="button"
-                class="party-chip"
-                data-party="5+"
-                aria-pressed="false"
-              >
+              <button type="button"
+                      class="party-chip"
+                      data-party="5+"
+                      aria-pressed="false">
                 5인+
               </button>
-
             </div>
-
           </div>
 
-          <button
-            type="button"
-            class="draw-button"
-            id="drawBtn"
-          >
+          <button type="button" class="draw-button" id="drawBtn">
             <span class="draw-button-icon">🎲</span>
             <span>랜덤 여행지 뽑기</span>
             <span class="draw-button-arrow">↗</span>
           </button>
 
-          <p
-            id="drawStatus"
-            class="draw-status"
-            aria-live="polite"
-          >
+          <p id="drawStatus" class="draw-status" aria-live="polite">
             여행 준비 완료! 버튼을 눌러 여행지를 뽑아보세요.
           </p>
-
         </section>
-
       </div>
 
-      <!-- RESULT -->
-
-      <section
-        class="result-card panel"
-        id="resultCard"
-        hidden
-      >
-
+      <!-- 추천 결과 -->
+      <section class="result-card panel" id="resultCard" hidden>
         <div class="result-topline">
-
           <span class="result-label">
             <span>✦</span>
             YOUR DESTINATION
           </span>
-
-          <span class="result-type" id="resultType">
-            오늘의 추천
-          </span>
-
+          <span class="result-type" id="resultType">오늘의 추천</span>
         </div>
 
         <div class="result-main">
-
           <div class="result-copy">
             <span class="result-overline">YOUR NEXT STOP</span>
-
             <h2 id="resultName">여행지</h2>
-
             <p id="resultDescription"></p>
           </div>
 
@@ -475,14 +395,11 @@
             <span>✳</span>
             <small>LET'S GO</small>
           </div>
-
         </div>
 
         <div class="result-details">
-
           <div class="result-detail">
             <span class="detail-icon">🍜</span>
-
             <div>
               <small>대표 먹거리</small>
               <p id="resultFood"></p>
@@ -491,7 +408,6 @@
 
           <div class="result-detail">
             <span class="detail-icon">📍</span>
-
             <div>
               <small>추천 명소</small>
               <p id="resultSpots"></p>
@@ -500,88 +416,56 @@
 
           <div class="result-detail">
             <span class="detail-icon">♧</span>
-
             <div>
               <small>여행 인원</small>
               <p id="resultParty"></p>
             </div>
           </div>
-
         </div>
 
         <div class="result-actions">
-
-          <a
-            id="naverMapLink"
-            class="secondary-button"
-            href="https://map.naver.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            네이버 지도에서 보기
-            <span>↗</span>
+          <a id="naverMapLink"
+             class="secondary-button"
+             href="https://map.naver.com/"
+             target="_blank"
+             rel="noopener noreferrer">
+            네이버 지도에서 보기 <span>↗</span>
           </a>
 
-          <button
-            type="button"
-            id="copyResultBtn"
-            class="secondary-button"
-          >
+          <button type="button"
+                  id="copyResultBtn"
+                  class="secondary-button">
             추천 결과 복사
           </button>
 
-          <button
-            type="button"
-            class="draw-again-button"
-            onclick="document.getElementById('drawBtn').click()"
-          >
+          <button type="button"
+                  class="draw-again-button"
+                  onclick="document.getElementById('drawBtn').click()">
             다른 여행지 뽑기 ↻
           </button>
-
         </div>
-
       </section>
-
     </section>
 
-    <!-- ========================================
-         TRAVEL IDEAS
-         ======================================== -->
-
+    <!-- 여행 아이디어 -->
     <section class="ideas-section" id="courses">
-
       <div class="page-container">
-
         <div class="section-heading">
-
           <div>
             <span class="eyebrow">TRAVEL INSPIRATION</span>
-
             <h2>여행의 즐거움을 더하는 아이디어</h2>
-
-            <p>
-              새로운 장소와 취향을 발견할 수 있는 여행 테마를 만나보세요.
-            </p>
+            <p>새로운 장소와 취향을 발견할 수 있는 여행 테마를 만나보세요.</p>
           </div>
-
           <span class="section-number">02 / GET INSPIRED</span>
-
         </div>
 
         <div class="inspiration-grid">
-
-          <a
-            class="inspiration-card inspiration-large"
-            href="#travel"
-          >
+          <a class="inspiration-card inspiration-large" href="#travel">
             <img
               src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=1000&q=85"
               alt="한국의 도시 풍경"
-              loading="lazy"
-            >
-
+              loading="lazy">
             <span class="inspiration-overlay"></span>
-
             <span class="inspiration-content">
               <small>URBAN EXPLORING</small>
               <strong>도시 속 새로운 발견</strong>
@@ -589,18 +473,12 @@
             </span>
           </a>
 
-          <a
-            class="inspiration-card"
-            href="#travel"
-          >
+          <a class="inspiration-card" href="#travel">
             <img
               src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=85"
               alt="아시아 여행 거리 풍경"
-              loading="lazy"
-            >
-
+              loading="lazy">
             <span class="inspiration-overlay"></span>
-
             <span class="inspiration-content">
               <small>LOCAL CULTURE</small>
               <strong>지역의 매력 발견하기</strong>
@@ -608,99 +486,59 @@
             </span>
           </a>
 
-          <a
-            class="inspiration-card"
-            href="#travel"
-          >
+          <a class="inspiration-card" href="#travel">
             <img
               src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=85"
               alt="자연 속에서 즐기는 여행"
-              loading="lazy"
-            >
-
+              loading="lazy">
             <span class="inspiration-overlay"></span>
-
             <span class="inspiration-content">
               <small>SLOW TRAVEL</small>
               <strong>잠시 쉬어가는 여행</strong>
               <span>자연과 함께하는 여유 ↗</span>
             </span>
           </a>
-
         </div>
 
         <!-- 추천 코스 -->
-
         <div class="course-heading">
-
           <div>
             <span class="eyebrow">YOUR MINI ITINERARY</span>
-
             <h2>추천 여행 코스</h2>
-
-            <p>
-              여행지를 뽑으면 해당 지역을 바탕으로 코스 아이디어를 보여드려요.
-            </p>
+            <p>여행지를 뽑으면 해당 지역을 바탕으로 코스 아이디어를 보여드려요.</p>
           </div>
-
           <span class="course-heading-icon">✳</span>
-
         </div>
 
         <div class="course-grid" id="courseGrid">
-
           <article class="course-card">
             <span class="course-icon">📸</span>
-
             <h3>첫 번째 코스 · 명소</h3>
-
-            <p>
-              여행지를 뽑으면 추천 명소가 표시됩니다.
-            </p>
+            <p>여행지를 뽑으면 추천 명소가 표시됩니다.</p>
           </article>
 
           <article class="course-card">
             <span class="course-icon">🍜</span>
-
             <h3>두 번째 코스 · 먹거리</h3>
-
-            <p>
-              지역의 대표 먹거리 아이디어를 확인해 보세요.
-            </p>
+            <p>지역의 대표 먹거리 아이디어를 확인해 보세요.</p>
           </article>
 
           <article class="course-card">
             <span class="course-icon">🌿</span>
-
             <h3>세 번째 코스 · 여유</h3>
-
-            <p>
-              주변 산책과 여유로운 일정을 계획해 보세요.
-            </p>
+            <p>주변 산책과 여유로운 일정을 계획해 보세요.</p>
           </article>
-
         </div>
-
       </div>
-
     </section>
 
-    <!-- ========================================
-         LUMEA PARTNERSHIP
-         ======================================== -->
-
-    <section
-      class="advertise-section page-container"
-      id="advertise"
-    >
-
+    <!-- LUMEA 업체 제휴 -->
+    <section class="advertise-section page-container" id="advertise">
       <div class="advertise-card">
-
         <div class="advertise-decoration advertise-decoration-one"></div>
         <div class="advertise-decoration advertise-decoration-two"></div>
 
         <div class="advertise-copy">
-
           <span class="advertise-kicker">
             <span></span>
             LUMEA · FOR LOCAL BUSINESSES
@@ -716,35 +554,28 @@
             맛집, 카페, 체험 공간 등 다양한 지역 업체의 제휴를 준비하고 있습니다.
           </p>
 
-          <a
-            class="advertise-button"
-            href="http://pf.kakao.com/_sNvJX"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LUMEA 광고·입점 문의
-            <span>↗</span>
+          <a class="advertise-button"
+             href="http://pf.kakao.com/_sNvJX"
+             target="_blank"
+             rel="noopener noreferrer">
+            LUMEA 광고·입점 문의 <span>↗</span>
           </a>
 
           <small class="advertise-disclaimer">
             RANDOM KOREA의 광고 및 제휴는 LUMEA가 운영합니다.
           </small>
-
         </div>
 
         <div class="advertise-visual" aria-hidden="true">
-
           <div class="ad-orbit orbit-one"></div>
           <div class="ad-orbit orbit-two"></div>
 
           <div class="ad-center">
             <span>✳</span>
-
             <strong>
               LOCAL<br>
               DISCOVERY
             </strong>
-
             <small>POWERED BY LUMEA</small>
           </div>
 
@@ -756,70 +587,43 @@
           <div class="ad-floating ad-floating-bottom">
             ✦ TRAVEL &amp; TASTE
           </div>
-
         </div>
-
       </div>
 
-      <!-- LUMEA 문의 -->
-
-      <a
-        class="advertiser-contact panel"
-        id="advertiser-contact"
-        href="http://pf.kakao.com/_sNvJX"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="text-decoration: none; color: inherit;"
-        aria-label="LUMEA 카카오톡 채널에서 업체 제휴 문의하기"
-      >
+      <a class="advertiser-contact panel"
+         id="advertiser-contact"
+         href="http://pf.kakao.com/_sNvJX"
+         target="_blank"
+         rel="noopener noreferrer"
+         style="text-decoration:none; color:inherit;"
+         aria-label="LUMEA 카카오톡 채널에서 업체 제휴 문의하기">
 
         <div class="contact-icon">✉</div>
 
         <div class="contact-copy">
-
           <span class="eyebrow">LUMEA PARTNERSHIP</span>
-
           <h3>업체 제휴 문의</h3>
-
           <p>
             랜덤코리아 광고, 입점 및 제휴 관련 문의는
             LUMEA 카카오톡 채널로 보내주세요.
           </p>
-
         </div>
 
-        <span class="contact-status">
-          LUMEA에 문의하기 ↗
-        </span>
-
+        <span class="contact-status">LUMEA에 문의하기 ↗</span>
       </a>
-
     </section>
-
   </main>
 
-  <!-- ========================================
-       FOOTER
-       사업자 정보 및 운영 브랜드
-       ======================================== -->
-
+  <!-- 하단 정보 -->
   <footer class="rk-footer">
-
     <div class="rk-footer-inner">
-
-      <!-- 브랜드 소개 -->
-
       <section class="rk-footer-brand">
-
         <a class="brand" href="#" aria-label="랜덤코리아 홈">
-
           <span class="brand-icon">✳</span>
-
           <span class="brand-copy">
             <strong>랜덤코리아</strong>
             <small>RANDOM KOREA</small>
           </span>
-
         </a>
 
         <p>
@@ -831,69 +635,39 @@
           <span>LUMEA</span>
           <small>RANDOM KOREA 운영 · 제작</small>
         </div>
-
       </section>
 
-      <!-- 서비스 메뉴 -->
-
       <nav class="rk-footer-column" aria-label="서비스">
-
         <h3>서비스</h3>
-
         <a href="#travel">여행지 추천</a>
         <a href="#courses">여행 아이디어</a>
         <a href="#advertise">업체 입점</a>
-
       </nav>
-
-      <!-- 문의 메뉴 -->
 
       <nav class="rk-footer-column" aria-label="문의 및 안내">
-
         <h3>문의 및 안내</h3>
-
-        <a
-          href="http://pf.kakao.com/_sNvJX"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="http://pf.kakao.com/_sNvJX"
+           target="_blank"
+           rel="noopener noreferrer">
           광고 및 제휴 문의 ↗
         </a>
-
       </nav>
 
-      <!-- 사업자 정보 -->
-
       <section class="rk-footer-column rk-footer-business">
-
         <h3>사업자 정보</h3>
 
-        <p>
-          <strong>상호명</strong>
-          LUMEA
-        </p>
-
-        <p>
-          <strong>대표자명</strong>
-          김영덕
-        </p>
-
-        <p>
-          <strong>사업자등록번호</strong>
-          254-05-03948
-        </p>
+        <p><strong>상호명</strong> LUMEA</p>
+        <p><strong>대표자명</strong> 김영덕</p>
+        <p><strong>사업자등록번호</strong> 254-05-03948</p>
 
         <p>
           <strong>사업장 소재지</strong><br>
           인천광역시 미추홀구 제일로40번길 93-35
         </p>
-
       </section>
-
     </div>
 
     <div class="rk-footer-bottom">
-
       <span class="footer-copyright">
         © 2026 RANDOM KOREA · LUMEA
       </span>
@@ -902,19 +676,31 @@
         여행 정보는 참고용이며,
         방문 전 운영 시간과 이용 정보를 확인해 주세요.
       </p>
-
     </div>
-
   </footer>
 
-  <!-- ========================================
-       SCRIPTS
-       기존 JavaScript 파일 연결 유지
-       ======================================== -->
+  <!-- 로그인 기능 -->
+  <script src="./auth.js"></script>
 
+  <!-- 접속자 수 화면 예시: 실제 집계가 아닙니다. -->
+  <script>
+    (() => {
+      const count = document.getElementById('demoOnlineCount');
+
+      let value = 200 + Math.floor(Math.random() * 101);
+      count.textContent = value;
+
+      setInterval(() => {
+        const change = Math.floor(Math.random() * 11) - 5;
+        value = Math.max(200, Math.min(300, value + change));
+        count.textContent = value;
+      }, 5000);
+    })();
+  </script>
+
+  <!-- 지도 및 여행지 추천 기능 -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="./data.js"></script>
   <script src="./main.js"></script>
-
 </body>
 </html>
