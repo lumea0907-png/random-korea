@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>LUMEA 랜덤코리아 | 회원 관리</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      font-family: system-ui, sans-serif;
+      background: #f5f1ea;
+      color: #40372d;
+    }
+
+    main { max-width: 1100px; margin: auto; }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    h1 { margin: 12px 0; font-size: 26px; }
+    a { color: #705332; }
+
+    button, input {
+      font: inherit;
+      min-height: 44px;
+      border: 1px solid #d5c8b7;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    button {
+      cursor: pointer;
+      background: #8b6b42;
+      color: #fff;
+    }
+
+    button:disabled { opacity: .5; cursor: default; }
+    input { min-width: 0; flex: 1; background: #fff; }
+
+    form {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .card {
+      margin-top: 16px;
+      padding: 18px;
+      background: #fffcf7;
+      border-radius: 16px;
+      border: 1px solid #e7ded1;
+    }
+
+    .scroll { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      min-width: 860px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #e7ded1;
+      padding: 12px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th { white-space: nowrap; }
+    td { overflow-wrap: anywhere; max-width: 260px; }
+    .id { font-family: monospace; font-size: 12px; }
+
+    .pages {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    #status { line-height: 1.7; }
+    [hidden] { display: none !important; }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 22px; }
+      .card { padding: 14px; }
+      form { flex-wrap: wrap; }
+      input { flex-basis: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <div>
+        <small>LUMEA · RANDOM KOREA</small>
+        <h1>회원 명단</h1>
+      </div>
+      <a href="./index.html">사이트로 돌아가기</a>
+    </header>
+
+    <p>
+      사이트에서 관리자 카카오 계정으로 로그인한 뒤,
+      같은 탭에서 이 페이지를 열어주세요.
+    </p>
+
+    <div class="card">
+      <p id="status" role="status">관리자 권한 확인 중…</p>
+      <button type="button" id="refresh">다시 확인</button>
+      <button type="button" id="logout" hidden>로그아웃</button>
+    </div>
+
+    <section id="members" class="card" hidden aria-label="회원 명단">
+      <p id="counts"></p>
+
+      <form id="search">
+        <input
+          id="query"
+          maxlength="100"
+          placeholder="닉네임·이메일·회원 ID 검색"
+          aria-label="회원 검색">
+        <button type="submit">검색</button>
+        <button type="button" id="reset">전체 보기</button>
+      </form>
+
+      <p>
+        이메일은 제공된 경우에만 표시돼요.
+        당첨자·쿠폰 소유자 구분에는 회원 ID를 사용하세요.
+      </p>
+
+      <div class="scroll" tabindex="0"
+           aria-label="회원 표, 좁은 화면에서 좌우로 스크롤">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">닉네임</th>
+              <th scope="col">이메일</th>
+              <th scope="col">회원 ID</th>
+              <th scope="col">가입 방식</th>
+              <th scope="col">가입일</th>
+              <th scope="col">최근 로그인</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+
+      <div class="pages">
+        <button type="button" id="prev">이전</button>
+        <span id="pageLabel"></span>
+        <button type="button" id="next">다음</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const API =
+        "https://damp-water-61a9random-korea-auth.audghks240.workers.dev";
+
+      const SESSION = "random-korea.auth.session.v1";
+      const el = id => document.getElementById(id);
+      const controls = [
+        "refresh", "logout", "query", "reset", "prev", "next"
+      ];
+
+      let page = 1;
+      let query = "";
+      let busy = false;
+      let controller = null;
+
+      const date = value => value
+        ? new Date(value * 1000).toLocaleString("ko-KR", {
+            timeZone: "Asia/Seoul"
+          })
+        : "—";
+
+      function clearList() {
+        el("members").hidden = true;
+        el("rows").replaceChildren();
+        el("counts").textContent = "";
+      }
+
+      async function load() {
+        if (busy) return;
+
+        busy = true;
+        controls.forEach(id => el(id).disabled = true);
+        el("search").querySelector("[type=submit]").disabled = true;
+
+        clearList();
+        el("status").textContent =
+          "관리자 권한과 명단을 확인하고 있어요…";
+        el("logout").hidden = true;
+
+        try {
+          const token = sessionStorage.getItem(SESSION);
+
+          if (!token) {
+            el("status").textContent =
+              "사이트로 돌아가 관리자 계정으로 로그인한 뒤, 같은 탭에서 이 주소를 다시 열어주세요.";
+            return;
+          }
+
+          controller = new AbortController();
+          const timeout = setTimeout(
+            () => controller.abort(),
+            15000
+          );
+
+          let response;
+
+          try {
+            response = await fetch(
+              API + "/api/admin/members?" +
+              new URLSearchParams({
+                page: String(page),
+                q: query
+              }),
+              {
+                headers: {
+                  Authorization: "Bearer " + token
+                },
+                credentials: "omit",
+                cache: "no-store",
+                referrerPolicy: "no-referrer",
+                signal: controller.signal
+              }
+            );
+          } finally {
+            clearTimeout(timeout);
+          }
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            if (response.status === 401) {
+              sessionStorage.removeItem(SESSION);
+            }
+
+            el("status").textContent =
+              data.message || "명단을 불러오지 못했어요.";
+            return;
+          }
+
+          const fragment = document.createDocumentFragment();
+
+          for (const member of data.members) {
+            const row = document.createElement("tr");
+
+            const values = [
+              member.nickname || "닉네임 미제공",
+              member.email || "미제공",
+              member.id,
+              member.provider,
+              date(member.created_at),
+              date(member.last_login_at)
+            ];
+
+            values.forEach((value, index) => {
+              const cell = document.createElement("td");
+              cell.textContent = String(value);
+
+              if (index === 2) cell.className = "id";
+
+              row.appendChild(cell);
+            });
+
+            fragment.appendChild(row);
+          }
+
+          el("rows").replaceChildren(fragment);
+
+          el("counts").textContent =
+            "전체 회원 " + data.total +
+            "명 · 검색 결과 " + data.matched + "명";
+
+          el("pageLabel").textContent =
+            page + " / " +
+            Math.max(1, Math.ceil(data.matched / data.pageSize));
+
+          el("members").hidden = false;
+          el("logout").hidden = false;
+
+          el("status").textContent = data.members.length
+            ? "관리자 권한이 확인됐어요. 시간은 한국 시간 기준입니다."
+            : "표시할 회원이 없어요.";
+
+          el("prev").dataset.disabled = String(page <= 1);
+          el("next").dataset.disabled =
+            String(page * data.pageSize >= data.matched);
+        } catch {
+          clearList();
+
+          el("status").textContent =
+            "서버 연결 또는 브라우저 저장 기능을 확인해 주세요. 잠시 후 다시 확인을 눌러주세요.";
+        } finally {
+          busy = false;
+          controls.forEach(id => el(id).disabled = false);
+
+          el("search").querySelector("[type=submit]").disabled = false;
+
+          el("prev").disabled =
+            el("prev").dataset.disabled !== "false";
+
+          el("next").disabled =
+            el("next").dataset.disabled !== "false";
+        }
+      }
+
+      el("refresh").addEventListener("click", load);
+
+      el("search").addEventListener("submit", event => {
+        event.preventDefault();
+        if (busy) return;
+
+        query = el("query").value.trim();
+        page = 1;
+        load();
+      });
+
+      el("reset").addEventListener("click", () => {
+        if (busy) return;
+
+        query = "";
+        page = 1;
+        el("query").value = "";
+        load();
+      });
+
+      el("prev").addEventListener("click", () => {
+        if (!busy && page > 1) {
+          page--;
+          load();
+        }
+      });
+
+      el("next").addEventListener("click", () => {
+        if (!busy) {
+          page++;
+          load();
+        }
+      });
+
+      el("logout").addEventListener("click", async () => {
+        if (busy) return;
+
+        busy = true;
+        clearList();
+        el("logout").disabled = true;
+
+        try {
+          const token = sessionStorage.getItem(SESSION);
+
+          const response = await fetch(API + "/api/logout", {
+            method: "POST",
+            headers: {
+              Authorization: "Bearer " + token
+            },
+            credentials: "omit",
+            cache: "no-store",
+            signal: AbortSignal.timeout(15000)
+          });
+
+          if (!response.ok) throw new Error("Logout failed");
+
+          sessionStorage.removeItem(SESSION);
+          el("logout").hidden = true;
+          el("status").textContent = "로그아웃했어요.";
+        } catch {
+          el("status").textContent =
+            "로그아웃 요청에 실패했어요. 다시 시도해 주세요.";
+        } finally {
+          busy = false;
+          el("logout").disabled = false;
+        }
+      });
+
+      window.addEventListener("pagehide", () => {
+        controller?.abort();
+        clearList();
+      });
+
+      window.addEventListener("pageshow", event => {
+        if (event.persisted) load();
+      });
+
+      load();
+    })();
+  </script>
+</body>
+</html>
