@@ -100,7 +100,10 @@
         <span class="live-dot"></span>
         FIND YOUR KOREA
       </span>
-
+<span style="font-size:12px; color:#666;">
+  현재 접속자 수 
+  <strong id="demoOnlineCount">250</strong>명
+</span>
       <label class="sr-only" for="languageSelect">
         언어 선택
       </label>
@@ -944,6 +947,23 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="./data.js"></script>
   <script src="./main.js"></script>
+<script>
+(() => {
+  const counter = document.getElementById("demoOnlineCount");
+  let count = 200 + Math.floor(Math.random() * 101);
 
+  function updateCount() {
+    counter.textContent = count;
+  }
+
+  updateCount();
+
+  setInterval(() => {
+    const change = Math.floor(Math.random() * 11) - 5;
+    count = Math.max(200, Math.min(300, count + change));
+    updateCount();
+  }, 5000);
+})();
+</script>
 </body>
 </html>
