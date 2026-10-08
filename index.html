@@ -612,40 +612,7 @@
 
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
-<style id="rk-poster-theme">
-/* 랜덤코리아 — 크림·브라운 여행 포스터 테마 */
-:root {--primary:#8b643d; --background:#f8f4ed; --text:#382a1f;}
-body {background:#f8f4ed; color:#382a1f;}
-.site-header {background:#fcf9f3; border-bottom:1px solid #d8c8b6; box-shadow:none;}
-.brand-copy strong, .hero h1, .section-heading h2, .course-heading h2, .rk-notice h2 {font-family:'Noto Serif KR',Georgia,serif;}
-.site-header .brand-copy strong {font-size:29px; font-weight:700; letter-spacing:-1.5px;}
-.brand-icon {background:transparent; color:#8b643d;}
-.header-nav a {color:#382a1f; font-weight:600;}
-.hero {position:relative; gap:36px; padding-top:70px; padding-bottom:60px; align-items:center;}
-.hero .eyebrow {color:#8b643d; letter-spacing:.12em;}
-.hero h1 {font-size:clamp(40px,4.5vw,66px); font-weight:700; line-height:1.45; letter-spacing:-2px; color:#382a1f;}
-.hero h1 span {color:#382a1f;}
-.hero-plane {display:none;}
-.hero-copy > p {color:#796e60; line-height:1.9;}
-.hero-start {background:#8b643d; color:#fff; border-radius:100px; padding:14px 28px; box-shadow:none;}
-.hero-art {border:0; border-radius:120px 12px 12px 12px; min-height:420px; overflow:hidden; box-shadow:0 12px 40px #735c3814;}
-.hero-art img {width:100%; height:100%; object-fit:cover;}
-.hero-highlights {gap:12px; flex-wrap:wrap;}
-.hero-highlights > span {background:#fffcf7; border:1px solid #e8ddcf; border-radius:12px; padding:12px 16px; color:#6f5031;}
-.panel, .course-card {background:#fffcf7; border:1px solid #e6dacb; border-radius:18px; box-shadow:0 8px 24px #70533108;}
-.draw-button, .advertise-button {background:#8b643d; border-radius:12px; color:#fff;}
-.inspiration-card {border-radius:16px; overflow:hidden;}
-.rk-footer {background:#eee6da; color:#493728; border-top:1px solid #d8c8b6;}
-.rk-notice {background:#fcf8ef; border:1px solid #8b643d; border-radius:8px; width:min(330px,calc(100vw - 32px)); box-shadow:0 10px 25px #40372d26;}
-.rk-notice-body {padding:30px 24px;}
-.rk-notice h2 {font-size:38px; font-weight:700; letter-spacing:-1.5px; border-color:#ac8b67;}
-.rk-notice-content {min-height:220px;}
-.rk-notice-content p {font-family:'Noto Serif KR',Georgia,serif; line-height:2.2;}
-.rk-notice-footer {background:#382a1f;}
-@media(min-width:1100px) {.hero {grid-template-columns:1fr 1fr;} .page-container {max-width:1200px;}}
-@media(max-width:760px) {.site-header .brand-copy strong {font-size:21px;} .hero {padding-top:30px; padding-bottom:30px; gap:22px;} .hero h1 {font-size:clamp(34px,8vw,44px); line-height:1.45; letter-spacing:-1.5px;} .hero-art {min-height:240px; border-radius:60px 12px 12px 12px;} .hero-start {width:100%;} .hero-highlights > span {padding:8px 10px;} .rk-notice h2 {font-size:32px;} .rk-notice-content {min-height:180px;}}
-
-</style>
+<link rel="stylesheet" href="./theme.css">
 </head>
 
   <body>
@@ -746,70 +713,21 @@ body {background:#f8f4ed; color:#382a1f;}
     </header>
 
     <main>
-      <section class="hero page-container">
-        <div class="hero-copy">
-          <span class="eyebrow">
-            <span class="eyebrow-line"></span>
-            YOUR NEXT ADVENTURE
-          </span>
-
-          <h1>
-            오늘 어디로<br>
-            <span>떠나볼까요?</span>
-            <span class="hero-plane">✈</span>
-          </h1>
-
-          <p>
-            고민은 잠시 내려놓고, 랜덤코리아와 함께<br class="desktop-break">
-            새로운 한국 여행지를 발견해 보세요.
-          </p>
-
-          <a class="hero-start" href="#travel">
-            🎲 지금 여행지 뽑기 <span>↗</span>
-          </a>
-
-          <div class="hero-highlights">
-            <span>
-              <span class="highlight-icon">✳</span>
-              새로운 여행지 발견
-            </span>
-            <span>
-              <span class="highlight-icon">⌖</span>
-              전국 지역 탐색
-            </span>
-            <span>
-              <span class="highlight-icon">♡</span>
-              나만의 여행 코스
-            </span>
-          </div>
-        </div>
-
-        <div class="hero-art" aria-label="한국 여행 풍경">
-          <img
-            src="https://images.unsplash.com/photo-1538485399081-7c8a6e3a7b87?auto=format&fit=crop&w=1200&q=85"
-            alt="한국 여행의 분위기를 담은 풍경"
-            onerror="this.style.display='none'">
-
-          <div class="hero-art-shade"></div>
-
-          <div class="hero-note">
-            <span class="hero-note-icon">✦</span>
-            <span>
-              <small>YOUR TRIP STARTS HERE</small>
-              <strong>
-                뜻밖의 발견이<br>
-                여행이 되는 순간
-              </strong>
-            </span>
-          </div>
-
-          <span class="hero-art-caption">
-            EXPLORE · DISCOVER · ENJOY
-          </span>
-        </div>
-      </section>
-
-      <section class="page-container travel-section" id="travel">
+      <section class="poster-hero">
+<div class="poster-notices" aria-label="공지사항">
+<aside class="poster-notice" data-notice="notice-001" aria-labelledby="poster-title-1"><div class="poster-notice-body"><span class="poster-brand">RANDOM KOREA</span><h2 id="poster-title-1">공지사항</h2><p class="poster-placeholder">공지 내용이 들어갈 공간</p><div class="poster-lines" aria-hidden="true"></div><small class="poster-note">내용은 추후 추가됩니다</small></div><div class="poster-footer"><label><input type="checkbox">24시간 동안 보지 않기</label><button type="button" aria-label="공지사항 닫기">닫기 ×</button></div></aside>
+<aside class="poster-notice dark" data-notice="news-001" aria-labelledby="poster-title-2"><div class="poster-notice-body"><span class="poster-brand">RANDOM KOREA</span><h2 id="poster-title-2">새로운 소식</h2><div class="poster-compass" aria-hidden="true">✧</div><small class="poster-note">이미지 또는 안내문 삽입</small></div><div class="poster-footer"><label><input type="checkbox">24시간 동안 보지 않기</label><button type="button" aria-label="새로운 소식 닫기">닫기 ×</button></div></aside>
+</div>
+<div class="poster-hand" aria-hidden="true">오늘,<br>어디로 떠날까요?</div>
+<div class="poster-copy"><p class="kicker">어디로 갈지 고민될 때,</p><h1>랜덤코리아가<br>당신의 여행을 제안합니다.</h1><p>대한민국 곳곳의 특별한 여행지를<br>랜덤으로 만나보세요.</p><a class="poster-start" href="#travel">랜덤 여행지 찾기 <span>›</span></a></div>
+<nav class="poster-shortcuts" aria-label="여행 바로가기"><a href="#travel"><b>⌖</b>지역별 여행지</a><a href="#travel"><b>♧</b>테마별 여행지</a><a href="#travel"><b>⚑</b>랜덤 여행</a><a href="#courses"><b>▣</b>여행 가이드</a><a href="#ideas"><b>▤</b>여행 이야기</a></nav>
+<div class="poster-bottom">
+<figure class="poster-photo"><img src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&amp;fit=crop&amp;w=600&amp;q=85" alt="도시에서 만나는 새로운 풍경" loading="lazy"><figcaption>도시에서 만나는 새로운 풍경</figcaption></figure>
+<figure class="poster-photo"><img src="https://images.unsplash.com/photo-1538485399081-7c8a6e3a7b87?auto=format&amp;fit=crop&amp;w=600&amp;q=85" alt="뜻밖의 여행지를 발견하세요" loading="lazy"><figcaption>뜻밖의 여행지를 발견하세요</figcaption></figure>
+<figure class="poster-photo"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=600&amp;q=85" alt="자연 속에서 쉬어가는 여행" loading="lazy"><figcaption>자연 속에서 쉬어가는 여행</figcaption></figure>
+<figure class="poster-photo"><img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&amp;fit=crop&amp;w=600&amp;q=85" alt="다음 여행의 영감을 만나세요" loading="lazy"><figcaption>다음 여행의 영감을 만나세요</figcaption></figure>
+</div></section>
+<section class="page-container travel-section" id="travel">
         <div class="section-heading">
           <div>
             <span class="eyebrow">RANDOM DESTINATION</span>
@@ -1224,79 +1142,6 @@ body {background:#f8f4ed; color:#382a1f;}
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="./data.js"></script>
     <script src="./main.js"></script>
-  <script>
-(() => {
-  'use strict';
-  // 공지 내용을 넣은 뒤 enabled를 true로 바꾸세요.
-  const NOTICE = {
-    enabled: true,
-    id: 'notice-001',
-    title: '공지사항',
-    text: '공지 내용이 들어갈 공간\n내용은 추후 추가됩니다.',
-    imageUrl: '',
-    linkUrl: ''
-  };
-  const preview = new URLSearchParams(location.search).get('notice_preview') === '1';
-  if (!NOTICE.enabled && !preview) return;
-  const key = 'random-korea.notice.' + NOTICE.id + '.hideUntil';
-  try {
-    if (!preview && Number(localStorage.getItem(key)) > Date.now()) return;
-  } catch {}
-  const card = document.createElement('aside');
-  card.className = 'rk-notice';
-  card.setAttribute('aria-labelledby', 'rk-notice-title');
-  card.innerHTML = '<div class="rk-notice-body"><span class="rk-notice-brand">RANDOM KOREA</span><h2 id="rk-notice-title"></h2><div class="rk-notice-content"></div></div><div class="rk-notice-footer"><label><input type="checkbox"> <span>24시간 동안 보지 않기</span></label><button type="button" aria-label="공지사항 닫기">닫기 <span aria-hidden="true">×</span></button></div>';
-  card.querySelector('h2').textContent = NOTICE.title;
-  const content = card.querySelector('.rk-notice-content');
-  function safeUrl(value) {
-    try {
-      const url = new URL(value, location.href);
-      return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
-    } catch { return ''; }
-  }
-  const imageUrl = NOTICE.imageUrl && safeUrl(NOTICE.imageUrl);
-  if (imageUrl) {
-    const image = document.createElement('img');
-    image.src = imageUrl;
-    image.alt = NOTICE.title;
-    const linkUrl = NOTICE.linkUrl && safeUrl(NOTICE.linkUrl);
-    if (linkUrl) {
-      const link = document.createElement('a');
-      link.href = linkUrl;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.append(image);
-      content.append(link);
-    } else content.append(image);
-  }
-  if (NOTICE.text) {
-    const paragraph = document.createElement('p');
-    paragraph.textContent = NOTICE.text;
-    content.append(paragraph);
-  }
-  if (!NOTICE.enabled && preview) {
-    const note = document.createElement('small');
-    note.textContent = '미리보기 · 실제 방문자에게는 표시되지 않습니다.';
-    content.append(note);
-  }
-  const previousFocus = document.activeElement;
-  function close() {
-    if (card.querySelector('input').checked && !preview) {
-      try { localStorage.setItem(key, String(Date.now() + 24 * 60 * 60 * 1000)); } catch {}
-    }
-    document.removeEventListener('keydown', onKey);
-    const restore = card.contains(document.activeElement);
-    card.remove();
-    if (restore && previousFocus?.isConnected) previousFocus.focus();
-  }
-  function onKey(event) {
-    if (event.key === 'Escape') close();
-  }
-  card.querySelector('button').addEventListener('click', close);
-  document.addEventListener('keydown', onKey);
-  document.body.append(card);
-})();
-
-</script>
-</body>
+  
+<script src="./notices.js"></script></body>
   </html>
