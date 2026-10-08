@@ -1,1160 +1,1166 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="google-site-verification" content="FZ18MBiSpPfiqsAEv7FEgdIqAbeyXGT3qnnomLAhP6Q">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#F5F1EA">
-  <meta name="description" content="랜덤코리아에서 다음 한국 여행지를 발견하고 새로운 맛집과 여행 코스를 찾아보세요.">
+  <!DOCTYPE html>
+  <html lang="ko">
+  <head>
+    
+<title>랜덤코리아 | 랜덤 지도와 새로운 장소 발견</title>
+<meta name="description" content="랜덤코리아에서 랜덤 지도를 통해 새로운 장소를 발견해 보세요.">
+<meta name="robots" content="index, follow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>랜덤코리아 | 오늘의 여행을 발견하다</title>
+    <meta charset="UTF-8">
+    <meta name="google-site-verification" content="FZ18MBiSpPfiqsAEv7FEgdIqAbeyXGT3qnnomLAhP6Q">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F5F1EA">
+    <meta name="description" content="랜덤코리아에서 다음 한국 여행지를 발견하고 새로운 맛집과 여행 코스를 찾아보세요.">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./style.css">
+    <title>랜덤코리아 | 오늘의 여행을 발견하다</title>
 
-  <style>
-    #memberAuth [hidden] {
-      display: none !important;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="./style.css">
 
-    #memberAuth {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      max-width: 240px;
-    }
-
-    .rk-member-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    #kakaoLoginBtn {
-      background: #FEE500;
-      color: #191919;
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 16px;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    #memberNickname {
-      font-size: 14px;
-      font-weight: 700;
-      overflow-wrap: anywhere;
-    }
-
-    #logoutBtn {
-      border: 1px solid #ddd;
-      background: #fff;
-      border-radius: 8px;
-      padding: 8px 10px;
-      font: inherit;
-      cursor: pointer;
-    }
-
-    #authStatus {
-      font-size: 11px;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
-    }
-
-    #authStatus:empty {
-      display: none;
-    }
-
-    #demoOnline {
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    #kakaoLoginBtn:disabled,
-    #logoutBtn:disabled {
-      opacity: 0.65;
-      cursor: wait;
-    }
-
-    .header-tools {
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .hero-start {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      gap: 12px;
-      margin-top: 22px;
-      padding: 12px 20px;
-      border-radius: 12px;
-      background: var(--primary);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .hero-start:focus-visible {
-      outline: 3px solid var(--primary);
-      outline-offset: 4px;
-    }
-
-    @media (max-width: 760px) {
-      html {
-        scroll-padding-top: 16px;
-        -webkit-text-size-adjust: 100%;
-      }
-
-      .page-container {
-        width: calc(100% - 32px);
-        max-width: 540px;
-      }
-
-      .site-header {
-        position: relative;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
-        grid-template-areas:
-          "brand language"
-          "account account"
-          "example example"
-          "nav nav";
-        gap: 8px 12px;
-        min-height: 0;
-        padding: 12px 16px 8px;
-      }
-
-      .site-header > .brand {
-        grid-area: brand;
-        min-width: 0;
-      }
-
-      .site-header .brand-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 23px;
-      }
-
-      .site-header .brand-copy strong {
-        font-size: 15px;
-      }
-
-      .site-header .brand-copy small {
-        font-size: 8px;
-        letter-spacing: 1.2px;
-      }
-
-      .site-header .header-tools {
-        display: contents;
-      }
-
-      .site-header .header-tag {
-        display: none;
-      }
-
-      #languageSelect {
-        grid-area: language;
-        justify-self: end;
-        width: 94px;
-        min-height: 44px;
-        padding: 8px;
-        font-size: 13px;
+    <style>
+      #memberAuth [hidden] {
+        display: none !important;
       }
 
       #memberAuth {
-        grid-area: account;
-        max-width: none;
-        min-width: 0;
-        flex-direction: row;
-        align-items: center;
-        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        max-width: 240px;
       }
 
       .rk-member-row {
-        flex: 0 1 auto;
-        min-width: 0;
+        display: flex;
+        align-items: center;
         gap: 8px;
+        flex-wrap: wrap;
       }
 
       #kakaoLoginBtn {
-        min-height: 44px;
-        padding: 10px 12px;
-        font-size: 13px;
-        white-space: nowrap;
-      }
-
-      #logoutBtn {
-        min-height: 44px;
-        padding: 8px 10px;
-        font-size: 12px;
-        white-space: nowrap;
+        background: #FEE500;
+        color: #191919;
+        border: 0;
+        border-radius: 10px;
+        padding: 12px 16px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
       }
 
       #memberNickname {
-        max-width: 140px;
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: 700;
+        overflow-wrap: anywhere;
+      }
+
+      #logoutBtn {
+        border: 1px solid #ddd;
+        background: #fff;
+        border-radius: 8px;
+        padding: 8px 10px;
+        font: inherit;
+        cursor: pointer;
       }
 
       #authStatus {
-        flex: 1;
-        min-width: 0;
-        font-size: 10px;
-        line-height: 1.6;
+        font-size: 11px;
+        line-height: 1.5;
+        overflow-wrap: anywhere;
+      }
+
+      #authStatus:empty {
+        display: none;
       }
 
       #demoOnline {
-        grid-area: example;
-        justify-self: end;
-        font-size: 10px;
-      }
-
-      .header-nav {
-        grid-area: nav;
-        order: initial;
-        margin: 0;
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 4px;
-        padding-top: 4px;
-      }
-
-      .header-nav a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 44px;
         font-size: 12px;
-        text-align: center;
+        white-space: nowrap;
       }
 
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 18px;
-        padding-top: 24px;
-        padding-bottom: 28px;
+      #kakaoLoginBtn:disabled,
+      #logoutBtn:disabled {
+        opacity: 0.65;
+        cursor: wait;
       }
 
-      .hero-copy {
-        padding: 0;
-        min-width: 0;
-      }
-
-      .hero .eyebrow {
-        font-size: 9px;
-        letter-spacing: 1.5px;
-      }
-
-      .hero h1 {
-        margin: 12px 0;
-        font-size: clamp(32px, 8vw, 42px);
-        line-height: 1.25;
-        letter-spacing: -1.7px;
-      }
-
-      .hero-copy > p {
-        font-size: 12px;
-        line-height: 1.8;
-      }
-
-      .desktop-break {
-        display: none;
+      .header-tools {
+        flex-wrap: wrap;
+        justify-content: flex-end;
       }
 
       .hero-start {
-        display: flex;
-        width: 100%;
-        min-height: 48px;
-        margin-top: 16px;
-      }
-
-      .hero-highlights {
-        margin-top: 14px;
-        gap: 8px 10px;
-      }
-
-      .hero-highlights > span {
-        font-size: 10px;
-      }
-
-      .hero-art {
-        min-height: 160px;
-        border-width: 4px;
-        border-radius: 10px 42px 10px 10px;
-      }
-
-      .hero-note {
-        left: 14px;
-        right: 14px;
-        bottom: 14px;
-        gap: 10px;
-      }
-
-      .hero-note-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 22px;
-      }
-
-      .hero-note small {
-        font-size: 8px;
-        letter-spacing: 1px;
-      }
-
-      .hero-note strong {
-        font-size: 16px;
-      }
-
-      .hero-art-caption {
-        top: 12px;
-        left: 12px;
-        font-size: 8px;
-      }
-
-      .section-heading {
-        margin-bottom: 16px;
-      }
-
-      .section-heading h2,
-      .course-heading h2 {
-        font-size: 23px;
-      }
-
-      .section-heading p,
-      .course-heading p {
-        font-size: 12px;
-        line-height: 1.7;
-      }
-
-      .travel-section {
-        padding-bottom: 32px;
-      }
-
-      .workspace {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .workspace > .control-card {
-        order: 1;
-      }
-
-      .workspace > .map-card {
-        order: 2;
-      }
-
-      .map-card,
-      .control-card {
-        width: 100%;
-        min-width: 0;
-        padding: 18px 16px;
-        border-radius: 16px;
-      }
-
-      .panel-heading h2,
-      .control-title-row h2 {
-        font-size: 19px;
-      }
-
-      .panel-heading p,
-      .control-title-row p {
-        font-size: 12px;
-        line-height: 1.6;
-      }
-
-      .control-group {
-        margin-bottom: 16px;
-      }
-
-      .field-select {
-        width: 100%;
-        min-height: 48px;
-        font-size: 16px;
-      }
-
-      .theme-options {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 8px;
-      }
-
-      .theme-button {
-        min-height: 44px;
-        padding: 8px;
-        font-size: 12px;
-      }
-
-      .party-options {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 6px;
-      }
-
-      .party-chip {
-        min-width: 0;
-        min-height: 44px;
-        padding: 8px 4px;
-        font-size: 12px;
-      }
-
-      .draw-button {
-        width: 100%;
-        min-height: 52px;
-        font-size: 15px;
-      }
-
-      #map {
-        height: 280px;
-        margin-top: 14px;
-      }
-
-      .map-bottom {
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      #resetMapBtn {
-        min-height: 44px;
-      }
-
-      .map-notice,
-      .draw-status {
-        font-size: 11px;
-        line-height: 1.7;
-      }
-
-      .result-card {
-        padding: 18px 16px;
-        margin-top: 16px;
-      }
-
-      .result-copy {
-        min-width: 0;
-      }
-
-      .result-copy h2 {
-        font-size: 27px;
-        overflow-wrap: anywhere;
-      }
-
-      .result-copy > p {
-        font-size: 12px;
-        line-height: 1.7;
-      }
-
-      .result-details {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 14px;
-      }
-
-      .result-detail p {
-        overflow-wrap: anywhere;
-      }
-
-      .result-actions {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 8px;
-      }
-
-      .result-actions > * {
-        width: 100%;
-        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
-        font-size: 13px;
-      }
-
-      .ideas-section {
-        padding: 32px 0;
-      }
-
-      .inspiration-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 12px;
-      }
-
-      .inspiration-card,
-      .inspiration-large {
-        height: 180px;
-        grid-column: auto;
-        grid-row: auto;
-      }
-
-      .course-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 12px;
-      }
-
-      .course-card {
-        padding: 20px 16px;
-      }
-
-      .advertise-section {
-        padding-top: 32px;
-        padding-bottom: 32px;
-      }
-
-      .advertise-copy h2 {
-        font-size: 26px;
-      }
-
-      .advertise-copy p {
-        font-size: 12px;
-        line-height: 1.8;
-      }
-
-      .advertise-button {
         min-height: 48px;
-      }
-
-      .advertiser-contact {
-        flex-wrap: wrap;
         gap: 12px;
-        padding: 18px 16px;
+        margin-top: 22px;
+        padding: 12px 20px;
+        border-radius: 12px;
+        background: var(--primary);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
       }
 
-      .contact-copy {
-        min-width: 0;
-        flex: 1 1 180px;
+      .hero-start:focus-visible {
+        outline: 3px solid var(--primary);
+        outline-offset: 4px;
       }
 
-      .contact-copy p {
-        font-size: 12px;
-        overflow-wrap: anywhere;
+      @media (max-width: 760px) {
+        html {
+          scroll-padding-top: 16px;
+          -webkit-text-size-adjust: 100%;
+        }
+
+        .page-container {
+          width: calc(100% - 32px);
+          max-width: 540px;
+        }
+
+        .site-header {
+          position: relative;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto;
+          grid-template-areas:
+            "brand language"
+            "account account"
+            "example example"
+            "nav nav";
+          gap: 8px 12px;
+          min-height: 0;
+          padding: 12px 16px 8px;
+        }
+
+        .site-header > .brand {
+          grid-area: brand;
+          min-width: 0;
+        }
+
+        .site-header .brand-icon {
+          width: 36px;
+          height: 36px;
+          font-size: 23px;
+        }
+
+        .site-header .brand-copy strong {
+          font-size: 15px;
+        }
+
+        .site-header .brand-copy small {
+          font-size: 8px;
+          letter-spacing: 1.2px;
+        }
+
+        .site-header .header-tools {
+          display: contents;
+        }
+
+        .site-header .header-tag {
+          display: none;
+        }
+
+        #languageSelect {
+          grid-area: language;
+          justify-self: end;
+          width: 94px;
+          min-height: 44px;
+          padding: 8px;
+          font-size: 13px;
+        }
+
+        #memberAuth {
+          grid-area: account;
+          max-width: none;
+          min-width: 0;
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .rk-member-row {
+          flex: 0 1 auto;
+          min-width: 0;
+          gap: 8px;
+        }
+
+        #kakaoLoginBtn {
+          min-height: 44px;
+          padding: 10px 12px;
+          font-size: 13px;
+          white-space: nowrap;
+        }
+
+        #logoutBtn {
+          min-height: 44px;
+          padding: 8px 10px;
+          font-size: 12px;
+          white-space: nowrap;
+        }
+
+        #memberNickname {
+          max-width: 140px;
+          font-size: 13px;
+        }
+
+        #authStatus {
+          flex: 1;
+          min-width: 0;
+          font-size: 10px;
+          line-height: 1.6;
+        }
+
+        #demoOnline {
+          grid-area: example;
+          justify-self: end;
+          font-size: 10px;
+        }
+
+        .header-nav {
+          grid-area: nav;
+          order: initial;
+          margin: 0;
+          width: 100%;
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 4px;
+          padding-top: 4px;
+        }
+
+        .header-nav a {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 44px;
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .hero {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 18px;
+          padding-top: 24px;
+          padding-bottom: 28px;
+        }
+
+        .hero-copy {
+          padding: 0;
+          min-width: 0;
+        }
+
+        .hero .eyebrow {
+          font-size: 9px;
+          letter-spacing: 1.5px;
+        }
+
+        .hero h1 {
+          margin: 12px 0;
+          font-size: clamp(32px, 8vw, 42px);
+          line-height: 1.25;
+          letter-spacing: -1.7px;
+        }
+
+        .hero-copy > p {
+          font-size: 12px;
+          line-height: 1.8;
+        }
+
+        .desktop-break {
+          display: none;
+        }
+
+        .hero-start {
+          display: flex;
+          width: 100%;
+          min-height: 48px;
+          margin-top: 16px;
+        }
+
+        .hero-highlights {
+          margin-top: 14px;
+          gap: 8px 10px;
+        }
+
+        .hero-highlights > span {
+          font-size: 10px;
+        }
+
+        .hero-art {
+          min-height: 160px;
+          border-width: 4px;
+          border-radius: 10px 42px 10px 10px;
+        }
+
+        .hero-note {
+          left: 14px;
+          right: 14px;
+          bottom: 14px;
+          gap: 10px;
+        }
+
+        .hero-note-icon {
+          width: 36px;
+          height: 36px;
+          font-size: 22px;
+        }
+
+        .hero-note small {
+          font-size: 8px;
+          letter-spacing: 1px;
+        }
+
+        .hero-note strong {
+          font-size: 16px;
+        }
+
+        .hero-art-caption {
+          top: 12px;
+          left: 12px;
+          font-size: 8px;
+        }
+
+        .section-heading {
+          margin-bottom: 16px;
+        }
+
+        .section-heading h2,
+        .course-heading h2 {
+          font-size: 23px;
+        }
+
+        .section-heading p,
+        .course-heading p {
+          font-size: 12px;
+          line-height: 1.7;
+        }
+
+        .travel-section {
+          padding-bottom: 32px;
+        }
+
+        .workspace {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .workspace > .control-card {
+          order: 1;
+        }
+
+        .workspace > .map-card {
+          order: 2;
+        }
+
+        .map-card,
+        .control-card {
+          width: 100%;
+          min-width: 0;
+          padding: 18px 16px;
+          border-radius: 16px;
+        }
+
+        .panel-heading h2,
+        .control-title-row h2 {
+          font-size: 19px;
+        }
+
+        .panel-heading p,
+        .control-title-row p {
+          font-size: 12px;
+          line-height: 1.6;
+        }
+
+        .control-group {
+          margin-bottom: 16px;
+        }
+
+        .field-select {
+          width: 100%;
+          min-height: 48px;
+          font-size: 16px;
+        }
+
+        .theme-options {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 8px;
+        }
+
+        .theme-button {
+          min-height: 44px;
+          padding: 8px;
+          font-size: 12px;
+        }
+
+        .party-options {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 6px;
+        }
+
+        .party-chip {
+          min-width: 0;
+          min-height: 44px;
+          padding: 8px 4px;
+          font-size: 12px;
+        }
+
+        .draw-button {
+          width: 100%;
+          min-height: 52px;
+          font-size: 15px;
+        }
+
+        #map {
+          height: 280px;
+          margin-top: 14px;
+        }
+
+        .map-bottom {
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+
+        #resetMapBtn {
+          min-height: 44px;
+        }
+
+        .map-notice,
+        .draw-status {
+          font-size: 11px;
+          line-height: 1.7;
+        }
+
+        .result-card {
+          padding: 18px 16px;
+          margin-top: 16px;
+        }
+
+        .result-copy {
+          min-width: 0;
+        }
+
+        .result-copy h2 {
+          font-size: 27px;
+          overflow-wrap: anywhere;
+        }
+
+        .result-copy > p {
+          font-size: 12px;
+          line-height: 1.7;
+        }
+
+        .result-details {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 14px;
+        }
+
+        .result-detail p {
+          overflow-wrap: anywhere;
+        }
+
+        .result-actions {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr);
+          gap: 8px;
+        }
+
+        .result-actions > * {
+          width: 100%;
+          min-height: 48px;
+          justify-content: center;
+          font-size: 13px;
+        }
+
+        .ideas-section {
+          padding: 32px 0;
+        }
+
+        .inspiration-grid {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
+        }
+
+        .inspiration-card,
+        .inspiration-large {
+          height: 180px;
+          grid-column: auto;
+          grid-row: auto;
+        }
+
+        .course-grid {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
+        }
+
+        .course-card {
+          padding: 20px 16px;
+        }
+
+        .advertise-section {
+          padding-top: 32px;
+          padding-bottom: 32px;
+        }
+
+        .advertise-copy h2 {
+          font-size: 26px;
+        }
+
+        .advertise-copy p {
+          font-size: 12px;
+          line-height: 1.8;
+        }
+
+        .advertise-button {
+          min-height: 48px;
+        }
+
+        .advertiser-contact {
+          flex-wrap: wrap;
+          gap: 12px;
+          padding: 18px 16px;
+        }
+
+        .contact-copy {
+          min-width: 0;
+          flex: 1 1 180px;
+        }
+
+        .contact-copy p {
+          font-size: 12px;
+          overflow-wrap: anywhere;
+        }
+
+        .contact-status {
+          white-space: normal;
+        }
+
+        .rk-footer {
+          padding: 28px 16px 0;
+          margin-top: 24px;
+        }
+
+        .rk-footer-bottom {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 8px;
+          padding: 16px 0;
+        }
+
+        .footer-note {
+          font-size: 11px;
+          line-height: 1.7;
+        }
+
+        .side-ad {
+          display: none;
+        }
       }
 
-      .contact-status {
-        white-space: normal;
+      @media (max-width: 360px) {
+        #memberAuth {
+          flex-wrap: wrap;
+        }
+
+        #authStatus {
+          flex-basis: 100%;
+        }
+
+        .hero-highlights {
+          gap: 6px 8px;
+        }
+
+        .hero-highlights > span {
+          font-size: 9px;
+        }
+
+        .hero-art {
+          min-height: 140px;
+        }
       }
+    </style>
+  </head>
 
-      .rk-footer {
-        padding: 28px 16px 0;
-        margin-top: 24px;
-      }
+  <body>
+    <aside class="side-ad side-ad-left" aria-label="LUMEA 광고">
+      <div class="side-ad-box">
+        <span class="side-ad-brand">LUMEA</span>
+        <span class="side-ad-small">LOCAL PARTNERSHIP</span>
 
-      .rk-footer-bottom {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        padding: 16px 0;
-      }
-
-      .footer-note {
-        font-size: 11px;
-        line-height: 1.7;
-      }
-
-      .side-ad {
-        display: none;
-      }
-    }
-
-    @media (max-width: 360px) {
-      #memberAuth {
-        flex-wrap: wrap;
-      }
-
-      #authStatus {
-        flex-basis: 100%;
-      }
-
-      .hero-highlights {
-        gap: 6px 8px;
-      }
-
-      .hero-highlights > span {
-        font-size: 9px;
-      }
-
-      .hero-art {
-        min-height: 140px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <aside class="side-ad side-ad-left" aria-label="LUMEA 광고">
-    <div class="side-ad-box">
-      <span class="side-ad-brand">LUMEA</span>
-      <span class="side-ad-small">LOCAL PARTNERSHIP</span>
-
-      <strong>
-        우리 가게를<br>
-        여행객에게 알려보세요.
-      </strong>
-
-      <p>
-        RANDOM KOREA를 찾는<br>
-        국내외 여행객에게<br>
-        매장을 홍보해보세요.
-      </p>
-
-      <a href="http://pf.kakao.com/_sNvJX"
-         target="_blank" rel="noopener noreferrer">
-        광고 문의하기 <span>↗</span>
-      </a>
-    </div>
-  </aside>
-
-  <aside class="side-ad side-ad-right" aria-label="LUMEA 광고">
-    <div class="side-ad-box">
-      <span class="side-ad-brand">LUMEA</span>
-      <span class="side-ad-small">TRAVEL MARKETING</span>
-
-      <strong>
-        여행객에게<br>
-        우리 매장 노출하기
-      </strong>
-
-      <p>
-        맛집 · 카페 · 체험 공간<br>
-        지역의 다양한 매장을<br>
-        여행객에게 소개합니다.
-      </p>
-
-      <a href="http://pf.kakao.com/_sNvJX"
-         target="_blank" rel="noopener noreferrer">
-        LUMEA 광고 문의 <span>↗</span>
-      </a>
-    </div>
-  </aside>
-
-  <header class="site-header">
-    <a class="brand" href="#" aria-label="랜덤코리아 홈">
-      <span class="brand-icon">✳</span>
-      <span class="brand-copy">
-        <strong>랜덤코리아</strong>
-        <small>RANDOM KOREA</small>
-      </span>
-    </a>
-
-    <nav class="header-nav" aria-label="주요 메뉴">
-      <a href="#travel">여행지 추천</a>
-      <a href="#courses">여행 아이디어</a>
-      <a href="#advertise">업체 입점</a>
-    </nav>
-
-    <div class="header-tools">
-      <span class="header-tag">
-        <span class="live-dot"></span>
-        FIND YOUR KOREA
-      </span>
-
-      <span id="demoOnline"
-            title="실제 접속자 집계가 아닌 화면 예시입니다.">
-      접속자 수  <strong id="demoOnlineCount">250</strong>명
-      </span>
-
-      <label class="sr-only" for="languageSelect">언어 선택</label>
-      <select id="languageSelect" aria-label="언어 선택">
-        <option value="ko">한국어</option>
-        <option value="en">English</option>
-        <option value="zh">中文</option>
-        <option value="ja">日本語</option>
-      </select>
-
-      <div id="memberAuth">
-        <div class="rk-member-row">
-          <button type="button" id="kakaoLoginBtn" disabled>
-            카카오로 시작하기
-          </button>
-          <span id="memberNickname" hidden></span>
-          <button type="button" id="logoutBtn" hidden>로그아웃</button>
-        </div>
-
-        <small id="authStatus" role="status">
-          로그인 상태 확인 중…
-        </small>
-      </div>
-    </div>
-  </header>
-
-  <main>
-    <section class="hero page-container">
-      <div class="hero-copy">
-        <span class="eyebrow">
-          <span class="eyebrow-line"></span>
-          YOUR NEXT ADVENTURE
-        </span>
-
-        <h1>
-          오늘 어디로<br>
-          <span>떠나볼까요?</span>
-          <span class="hero-plane">✈</span>
-        </h1>
+        <strong>
+          우리 가게를<br>
+          여행객에게 알려보세요.
+        </strong>
 
         <p>
-          고민은 잠시 내려놓고, 랜덤코리아와 함께<br class="desktop-break">
-          새로운 한국 여행지를 발견해 보세요.
+          RANDOM KOREA를 찾는<br>
+          국내외 여행객에게<br>
+          매장을 홍보해보세요.
         </p>
 
-        <a class="hero-start" href="#travel">
-          🎲 지금 여행지 뽑기 <span>↗</span>
+        <a href="http://pf.kakao.com/_sNvJX"
+          target="_blank" rel="noopener noreferrer">
+          광고 문의하기 <span>↗</span>
         </a>
-
-        <div class="hero-highlights">
-          <span>
-            <span class="highlight-icon">✳</span>
-            새로운 여행지 발견
-          </span>
-          <span>
-            <span class="highlight-icon">⌖</span>
-            전국 지역 탐색
-          </span>
-          <span>
-            <span class="highlight-icon">♡</span>
-            나만의 여행 코스
-          </span>
-        </div>
       </div>
+    </aside>
 
-      <div class="hero-art" aria-label="한국 여행 풍경">
-        <img
-          src="https://images.unsplash.com/photo-1538485399081-7c8a6e3a7b87?auto=format&fit=crop&w=1200&q=85"
-          alt="한국 여행의 분위기를 담은 풍경"
-          onerror="this.style.display='none'">
+    <aside class="side-ad side-ad-right" aria-label="LUMEA 광고">
+      <div class="side-ad-box">
+        <span class="side-ad-brand">LUMEA</span>
+        <span class="side-ad-small">TRAVEL MARKETING</span>
 
-        <div class="hero-art-shade"></div>
-
-        <div class="hero-note">
-          <span class="hero-note-icon">✦</span>
-          <span>
-            <small>YOUR TRIP STARTS HERE</small>
-            <strong>
-              뜻밖의 발견이<br>
-              여행이 되는 순간
-            </strong>
-          </span>
-        </div>
-
-        <span class="hero-art-caption">
-          EXPLORE · DISCOVER · ENJOY
-        </span>
-      </div>
-    </section>
-
-    <section class="page-container travel-section" id="travel">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">RANDOM DESTINATION</span>
-          <h2>나의 다음 여행지</h2>
-          <p>지역과 테마를 선택하고, 오늘의 여행지를 뽑아보세요.</p>
-        </div>
-        <span class="section-number">01 / DISCOVER</span>
-      </div>
-
-      <div class="workspace">
-        <section class="map-card panel">
-          <div class="panel-heading map-heading">
-            <div>
-              <span class="panel-kicker">EXPLORE THE MAP</span>
-              <h2>대한민국 여행 지도</h2>
-              <p>지도에서 추천 지역을 확인해 보세요.</p>
-            </div>
-            <span class="status-pill" id="mapStatus">지도 연결 중</span>
-          </div>
-
-          <div id="map" aria-label="대한민국 여행 지도"></div>
-
-          <div class="map-bottom">
-            <div class="map-legend">
-              <span class="legend-dot"></span>
-              <span>여행 지역</span>
-              <span class="legend-line"></span>
-              <span>추천 지역 경계</span>
-            </div>
-
-            <button type="button" class="text-button" id="resetMapBtn">
-              <span>↺</span> 전국 보기
-            </button>
-          </div>
-
-          <p id="mapNotice" class="map-notice" aria-live="polite">
-            지도를 준비하고 있습니다.
-          </p>
-        </section>
-
-        <section class="control-card panel">
-          <div class="control-title-row">
-            <div>
-              <span class="panel-kicker">MAKE IT RANDOM</span>
-              <h2>어디로 떠나볼까요?</h2>
-              <p>취향에 맞는 조건을 골라주세요.</p>
-            </div>
-            <span class="dice-badge">🎲</span>
-          </div>
-
-          <div class="control-group">
-            <label class="field-label" for="scopeSelect">
-              <span class="field-icon">⌖</span> 여행 지역 범위
-            </label>
-
-            <select id="scopeSelect" class="field-select">
-              <option value="wide">전국 시·도 단위</option>
-              <option value="detail">시·군·구 단위</option>
-            </select>
-          </div>
-
-          <div class="control-group">
-            <span class="field-label">
-              <span class="field-icon">✳</span> 여행 테마
-            </span>
-
-            <div class="theme-options" id="themeOptions">
-              <button type="button" class="theme-button active"
-                      data-theme="all" aria-pressed="true">
-                <span>✦</span> 전체
-              </button>
-              <button type="button" class="theme-button"
-                      data-theme="nature" aria-pressed="false">
-                <span>🌿</span> 자연
-              </button>
-              <button type="button" class="theme-button"
-                      data-theme="food" aria-pressed="false">
-                <span>🍜</span> 먹거리
-              </button>
-              <button type="button" class="theme-button"
-                      data-theme="ocean" aria-pressed="false">
-                <span>🌊</span> 바다
-              </button>
-              <button type="button" class="theme-button"
-                      data-theme="culture" aria-pressed="false">
-                <span>🏛️</span> 문화
-              </button>
-            </div>
-          </div>
-
-          <div class="control-group">
-            <span class="field-label">
-              <span class="field-icon">♧</span> 함께하는 여행 인원
-            </span>
-
-            <div class="party-options" id="partyOptions">
-              <button type="button" class="party-chip active"
-                      data-party="1" aria-pressed="true">
-                혼자
-              </button>
-              <button type="button" class="party-chip"
-                      data-party="2" aria-pressed="false">
-                2인
-              </button>
-              <button type="button" class="party-chip"
-                      data-party="3-4" aria-pressed="false">
-                3~4인
-              </button>
-              <button type="button" class="party-chip"
-                      data-party="5+" aria-pressed="false">
-                5인+
-              </button>
-            </div>
-          </div>
-
-          <button type="button" class="draw-button" id="drawBtn">
-            <span class="draw-button-icon">🎲</span>
-            <span>랜덤 여행지 뽑기</span>
-            <span class="draw-button-arrow">↗</span>
-          </button>
-
-          <p id="drawStatus" class="draw-status" aria-live="polite">
-            여행 준비 완료! 버튼을 눌러 여행지를 뽑아보세요.
-          </p>
-        </section>
-      </div>
-
-      <section class="result-card panel" id="resultCard" hidden>
-        <div class="result-topline">
-          <span class="result-label">
-            <span>✦</span> YOUR DESTINATION
-          </span>
-          <span class="result-type" id="resultType">오늘의 추천</span>
-        </div>
-
-        <div class="result-main">
-          <div class="result-copy">
-            <span class="result-overline">YOUR NEXT STOP</span>
-            <h2 id="resultName">여행지</h2>
-            <p id="resultDescription"></p>
-          </div>
-          <div class="result-stamp" aria-hidden="true">
-            <span>✳</span>
-            <small>LET'S GO</small>
-          </div>
-        </div>
-
-        <div class="result-details">
-          <div class="result-detail">
-            <span class="detail-icon">🍜</span>
-            <div>
-              <small>대표 먹거리</small>
-              <p id="resultFood"></p>
-            </div>
-          </div>
-          <div class="result-detail">
-            <span class="detail-icon">📍</span>
-            <div>
-              <small>추천 명소</small>
-              <p id="resultSpots"></p>
-            </div>
-          </div>
-          <div class="result-detail">
-            <span class="detail-icon">♧</span>
-            <div>
-              <small>여행 인원</small>
-              <p id="resultParty"></p>
-            </div>
-          </div>
-        </div>
-
-        <div class="result-actions">
-          <a id="naverMapLink" class="secondary-button"
-             href="https://map.naver.com/"
-             target="_blank" rel="noopener noreferrer">
-            네이버 지도에서 보기 <span>↗</span>
-          </a>
-
-          <button type="button" id="copyResultBtn"
-                  class="secondary-button">
-            추천 결과 복사
-          </button>
-
-          <button type="button" class="draw-again-button"
-                  onclick="document.getElementById('drawBtn').click()">
-            다른 여행지 뽑기 ↻
-          </button>
-        </div>
-      </section>
-    </section>
-
-    <section class="ideas-section" id="courses">
-      <div class="page-container">
-        <div class="section-heading">
-          <div>
-            <span class="eyebrow">TRAVEL INSPIRATION</span>
-            <h2>여행의 즐거움을 더하는 아이디어</h2>
-            <p>새로운 장소와 취향을 발견할 수 있는 여행 테마를 만나보세요.</p>
-          </div>
-          <span class="section-number">02 / GET INSPIRED</span>
-        </div>
-
-        <div class="inspiration-grid">
-          <a class="inspiration-card inspiration-large" href="#travel">
-            <img
-              src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=1000&q=85"
-              alt="한국의 도시 풍경" loading="lazy">
-            <span class="inspiration-overlay"></span>
-            <span class="inspiration-content">
-              <small>URBAN EXPLORING</small>
-              <strong>도시 속 새로운 발견</strong>
-              <span>골목과 거리에서 찾는 여행의 재미 ↗</span>
-            </span>
-          </a>
-
-          <a class="inspiration-card" href="#travel">
-            <img
-              src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=85"
-              alt="아시아 여행 거리 풍경" loading="lazy">
-            <span class="inspiration-overlay"></span>
-            <span class="inspiration-content">
-              <small>LOCAL CULTURE</small>
-              <strong>지역의 매력 발견하기</strong>
-              <span>익숙한 곳도 새롭게 ↗</span>
-            </span>
-          </a>
-
-          <a class="inspiration-card" href="#travel">
-            <img
-              src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=85"
-              alt="자연 속에서 즐기는 여행" loading="lazy">
-            <span class="inspiration-overlay"></span>
-            <span class="inspiration-content">
-              <small>SLOW TRAVEL</small>
-              <strong>잠시 쉬어가는 여행</strong>
-              <span>자연과 함께하는 여유 ↗</span>
-            </span>
-          </a>
-        </div>
-
-        <div class="course-heading">
-          <div>
-            <span class="eyebrow">YOUR MINI ITINERARY</span>
-            <h2>추천 여행 코스</h2>
-            <p>여행지를 뽑으면 해당 지역을 바탕으로 코스 아이디어를 보여드려요.</p>
-          </div>
-          <span class="course-heading-icon">✳</span>
-        </div>
-
-        <div class="course-grid" id="courseGrid">
-          <article class="course-card">
-            <span class="course-icon">📸</span>
-            <h3>첫 번째 코스 · 명소</h3>
-            <p>여행지를 뽑으면 추천 명소가 표시됩니다.</p>
-          </article>
-          <article class="course-card">
-            <span class="course-icon">🍜</span>
-            <h3>두 번째 코스 · 먹거리</h3>
-            <p>지역의 대표 먹거리 아이디어를 확인해 보세요.</p>
-          </article>
-          <article class="course-card">
-            <span class="course-icon">🌿</span>
-            <h3>세 번째 코스 · 여유</h3>
-            <p>주변 산책과 여유로운 일정을 계획해 보세요.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="advertise-section page-container" id="advertise">
-      <div class="advertise-card">
-        <div class="advertise-decoration advertise-decoration-one"></div>
-        <div class="advertise-decoration advertise-decoration-two"></div>
-
-        <div class="advertise-copy">
-          <span class="advertise-kicker">
-            <span></span> LUMEA · FOR LOCAL BUSINESSES
-          </span>
-
-          <h2>우리 가게를<br>여행객에게 알려보세요.</h2>
-
-          <p>
-            랜덤코리아와 함께 여행객이 새로운 지역과 장소를 발견하도록 도와주세요.
-            맛집, 카페, 체험 공간 등 다양한 지역 업체의 제휴를 준비하고 있습니다.
-          </p>
-
-          <a class="advertise-button"
-             href="http://pf.kakao.com/_sNvJX"
-             target="_blank" rel="noopener noreferrer">
-            LUMEA 광고·입점 문의 <span>↗</span>
-          </a>
-
-          <small class="advertise-disclaimer">
-            RANDOM KOREA의 광고 및 제휴는 LUMEA가 운영합니다.
-          </small>
-        </div>
-
-        <div class="advertise-visual" aria-hidden="true">
-          <div class="ad-orbit orbit-one"></div>
-          <div class="ad-orbit orbit-two"></div>
-          <div class="ad-center">
-            <span>✳</span>
-            <strong>LOCAL<br>DISCOVERY</strong>
-            <small>POWERED BY LUMEA</small>
-          </div>
-          <div class="ad-floating ad-floating-top">
-            LOCAL<br>BUSINESS
-          </div>
-          <div class="ad-floating ad-floating-bottom">
-            ✦ TRAVEL &amp; TASTE
-          </div>
-        </div>
-      </div>
-
-      <a class="advertiser-contact panel"
-         id="advertiser-contact"
-         href="http://pf.kakao.com/_sNvJX"
-         target="_blank" rel="noopener noreferrer"
-         style="text-decoration:none; color:inherit;"
-         aria-label="LUMEA 카카오톡 채널에서 업체 제휴 문의하기">
-        <div class="contact-icon">✉</div>
-        <div class="contact-copy">
-          <span class="eyebrow">LUMEA PARTNERSHIP</span>
-          <h3>업체 제휴 문의</h3>
-          <p>
-            랜덤코리아 광고, 입점 및 제휴 관련 문의는
-            LUMEA 카카오톡 채널로 보내주세요.
-          </p>
-        </div>
-        <span class="contact-status">LUMEA에 문의하기 ↗</span>
-      </a>
-    </section>
-  </main>
-
-  <footer class="rk-footer">
-    <div class="rk-footer-inner">
-      <section class="rk-footer-brand">
-        <a class="brand" href="#" aria-label="랜덤코리아 홈">
-          <span class="brand-icon">✳</span>
-          <span class="brand-copy">
-            <strong>랜덤코리아</strong>
-            <small>RANDOM KOREA</small>
-          </span>
-        </a>
+        <strong>
+          여행객에게<br>
+          우리 매장 노출하기
+        </strong>
 
         <p>
-          새로운 한국 여행지를 발견하는 즐거움,
-          랜덤코리아와 함께하세요.
+          맛집 · 카페 · 체험 공간<br>
+          지역의 다양한 매장을<br>
+          여행객에게 소개합니다.
         </p>
 
-        <div class="lumea-footer-brand">
-          <span>LUMEA</span>
-          <small>RANDOM KOREA 운영 · 제작</small>
-        </div>
-      </section>
+        <a href="http://pf.kakao.com/_sNvJX"
+          target="_blank" rel="noopener noreferrer">
+          LUMEA 광고 문의 <span>↗</span>
+        </a>
+      </div>
+    </aside>
 
-      <nav class="rk-footer-column" aria-label="서비스">
-        <h3>서비스</h3>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="랜덤코리아 홈">
+        <span class="brand-icon">✳</span>
+        <span class="brand-copy">
+          <strong>랜덤코리아</strong>
+          <small>RANDOM KOREA</small>
+        </span>
+      </a>
+
+      <nav class="header-nav" aria-label="주요 메뉴">
         <a href="#travel">여행지 추천</a>
         <a href="#courses">여행 아이디어</a>
         <a href="#advertise">업체 입점</a>
       </nav>
 
-      <nav class="rk-footer-column" aria-label="문의 및 안내">
-        <h3>문의 및 안내</h3>
-        <a href="http://pf.kakao.com/_sNvJX"
-           target="_blank" rel="noopener noreferrer">
-          광고 및 제휴 문의 ↗
-        </a>
-      </nav>
+      <div class="header-tools">
+        <span class="header-tag">
+          <span class="live-dot"></span>
+          FIND YOUR KOREA
+        </span>
 
-      <section class="rk-footer-column rk-footer-business">
-        <h3>사업자 정보</h3>
-        <p><strong>상호명</strong> LUMEA</p>
-        <p><strong>대표자명</strong> 김영덕</p>
-        <p><strong>사업자등록번호</strong> 254-05-03948</p>
-        <p>
-          <strong>사업장 소재지</strong><br>
-          인천광역시 미추홀구 제일로40번길 93-35
-        </p>
+        <span id="demoOnline"
+              title="실제 접속자 집계가 아닌 화면 예시입니다.">
+          접속자 수 예시 <strong id="demoOnlineCount">250</strong>명
+        </span>
+
+        <label class="sr-only" for="languageSelect">언어 선택</label>
+        <select id="languageSelect" aria-label="언어 선택">
+          <option value="ko">한국어</option>
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+          <option value="ja">日本語</option>
+        </select>
+
+        <div id="memberAuth">
+          <div class="rk-member-row">
+            <button type="button" id="kakaoLoginBtn" disabled>
+              카카오로 시작하기
+            </button>
+            <span id="memberNickname" hidden></span>
+            <button type="button" id="logoutBtn" hidden>로그아웃</button>
+          </div>
+
+          <small id="authStatus" role="status">
+            로그인 상태 확인 중…
+          </small>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero page-container">
+        <div class="hero-copy">
+          <span class="eyebrow">
+            <span class="eyebrow-line"></span>
+            YOUR NEXT ADVENTURE
+          </span>
+
+          <h1>
+            오늘 어디로<br>
+            <span>떠나볼까요?</span>
+            <span class="hero-plane">✈</span>
+          </h1>
+
+          <p>
+            고민은 잠시 내려놓고, 랜덤코리아와 함께<br class="desktop-break">
+            새로운 한국 여행지를 발견해 보세요.
+          </p>
+
+          <a class="hero-start" href="#travel">
+            🎲 지금 여행지 뽑기 <span>↗</span>
+          </a>
+
+          <div class="hero-highlights">
+            <span>
+              <span class="highlight-icon">✳</span>
+              새로운 여행지 발견
+            </span>
+            <span>
+              <span class="highlight-icon">⌖</span>
+              전국 지역 탐색
+            </span>
+            <span>
+              <span class="highlight-icon">♡</span>
+              나만의 여행 코스
+            </span>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="한국 여행 풍경">
+          <img
+            src="https://images.unsplash.com/photo-1538485399081-7c8a6e3a7b87?auto=format&fit=crop&w=1200&q=85"
+            alt="한국 여행의 분위기를 담은 풍경"
+            onerror="this.style.display='none'">
+
+          <div class="hero-art-shade"></div>
+
+          <div class="hero-note">
+            <span class="hero-note-icon">✦</span>
+            <span>
+              <small>YOUR TRIP STARTS HERE</small>
+              <strong>
+                뜻밖의 발견이<br>
+                여행이 되는 순간
+              </strong>
+            </span>
+          </div>
+
+          <span class="hero-art-caption">
+            EXPLORE · DISCOVER · ENJOY
+          </span>
+        </div>
       </section>
-    </div>
 
-    <div class="rk-footer-bottom">
-      <span class="footer-copyright">
-        © 2026 RANDOM KOREA · LUMEA
-      </span>
-      <p class="footer-note">
-        여행 정보는 참고용이며,
-        방문 전 운영 시간과 이용 정보를 확인해 주세요.
-      </p>
-    </div>
-  </footer>
+      <section class="page-container travel-section" id="travel">
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">RANDOM DESTINATION</span>
+            <h2>나의 다음 여행지</h2>
+            <p>지역과 테마를 선택하고, 오늘의 여행지를 뽑아보세요.</p>
+          </div>
+          <span class="section-number">01 / DISCOVER</span>
+        </div>
 
-  <script src="./auth.js"></script>
+        <div class="workspace">
+          <section class="map-card panel">
+            <div class="panel-heading map-heading">
+              <div>
+                <span class="panel-kicker">EXPLORE THE MAP</span>
+                <h2>대한민국 여행 지도</h2>
+                <p>지도에서 추천 지역을 확인해 보세요.</p>
+              </div>
+              <span class="status-pill" id="mapStatus">지도 연결 중</span>
+            </div>
 
-  <script>
-    (() => {
-      const count = document.getElementById('demoOnlineCount');
-      let value = 200 + Math.floor(Math.random() * 101);
-      count.textContent = value;
+            <div id="map" aria-label="대한민국 여행 지도"></div>
 
-      setInterval(() => {
-        const change = Math.floor(Math.random() * 11) - 5;
-        value = Math.max(200, Math.min(300, value + change));
+            <div class="map-bottom">
+              <div class="map-legend">
+                <span class="legend-dot"></span>
+                <span>여행 지역</span>
+                <span class="legend-line"></span>
+                <span>추천 지역 경계</span>
+              </div>
+
+              <button type="button" class="text-button" id="resetMapBtn">
+                <span>↺</span> 전국 보기
+              </button>
+            </div>
+
+            <p id="mapNotice" class="map-notice" aria-live="polite">
+              지도를 준비하고 있습니다.
+            </p>
+          </section>
+
+          <section class="control-card panel">
+            <div class="control-title-row">
+              <div>
+                <span class="panel-kicker">MAKE IT RANDOM</span>
+                <h2>어디로 떠나볼까요?</h2>
+                <p>취향에 맞는 조건을 골라주세요.</p>
+              </div>
+              <span class="dice-badge">🎲</span>
+            </div>
+
+            <div class="control-group">
+              <label class="field-label" for="scopeSelect">
+                <span class="field-icon">⌖</span> 여행 지역 범위
+              </label>
+
+              <select id="scopeSelect" class="field-select">
+                <option value="wide">전국 시·도 단위</option>
+                <option value="detail">시·군·구 단위</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <span class="field-label">
+                <span class="field-icon">✳</span> 여행 테마
+              </span>
+
+              <div class="theme-options" id="themeOptions">
+                <button type="button" class="theme-button active"
+                        data-theme="all" aria-pressed="true">
+                  <span>✦</span> 전체
+                </button>
+                <button type="button" class="theme-button"
+                        data-theme="nature" aria-pressed="false">
+                  <span>🌿</span> 자연
+                </button>
+                <button type="button" class="theme-button"
+                        data-theme="food" aria-pressed="false">
+                  <span>🍜</span> 먹거리
+                </button>
+                <button type="button" class="theme-button"
+                        data-theme="ocean" aria-pressed="false">
+                  <span>🌊</span> 바다
+                </button>
+                <button type="button" class="theme-button"
+                        data-theme="culture" aria-pressed="false">
+                  <span>🏛️</span> 문화
+                </button>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <span class="field-label">
+                <span class="field-icon">♧</span> 함께하는 여행 인원
+              </span>
+
+              <div class="party-options" id="partyOptions">
+                <button type="button" class="party-chip active"
+                        data-party="1" aria-pressed="true">
+                  혼자
+                </button>
+                <button type="button" class="party-chip"
+                        data-party="2" aria-pressed="false">
+                  2인
+                </button>
+                <button type="button" class="party-chip"
+                        data-party="3-4" aria-pressed="false">
+                  3~4인
+                </button>
+                <button type="button" class="party-chip"
+                        data-party="5+" aria-pressed="false">
+                  5인+
+                </button>
+              </div>
+            </div>
+
+            <button type="button" class="draw-button" id="drawBtn">
+              <span class="draw-button-icon">🎲</span>
+              <span>랜덤 여행지 뽑기</span>
+              <span class="draw-button-arrow">↗</span>
+            </button>
+
+            <p id="drawStatus" class="draw-status" aria-live="polite">
+              여행 준비 완료! 버튼을 눌러 여행지를 뽑아보세요.
+            </p>
+          </section>
+        </div>
+
+        <section class="result-card panel" id="resultCard" hidden>
+          <div class="result-topline">
+            <span class="result-label">
+              <span>✦</span> YOUR DESTINATION
+            </span>
+            <span class="result-type" id="resultType">오늘의 추천</span>
+          </div>
+
+          <div class="result-main">
+            <div class="result-copy">
+              <span class="result-overline">YOUR NEXT STOP</span>
+              <h2 id="resultName">여행지</h2>
+              <p id="resultDescription"></p>
+            </div>
+            <div class="result-stamp" aria-hidden="true">
+              <span>✳</span>
+              <small>LET'S GO</small>
+            </div>
+          </div>
+
+          <div class="result-details">
+            <div class="result-detail">
+              <span class="detail-icon">🍜</span>
+              <div>
+                <small>대표 먹거리</small>
+                <p id="resultFood"></p>
+              </div>
+            </div>
+            <div class="result-detail">
+              <span class="detail-icon">📍</span>
+              <div>
+                <small>추천 명소</small>
+                <p id="resultSpots"></p>
+              </div>
+            </div>
+            <div class="result-detail">
+              <span class="detail-icon">♧</span>
+              <div>
+                <small>여행 인원</small>
+                <p id="resultParty"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-actions">
+            <a id="naverMapLink" class="secondary-button"
+              href="https://map.naver.com/"
+              target="_blank" rel="noopener noreferrer">
+              네이버 지도에서 보기 <span>↗</span>
+            </a>
+
+            <button type="button" id="copyResultBtn"
+                    class="secondary-button">
+              추천 결과 복사
+            </button>
+
+            <button type="button" class="draw-again-button"
+                    onclick="document.getElementById('drawBtn').click()">
+              다른 여행지 뽑기 ↻
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <section class="ideas-section" id="courses">
+        <div class="page-container">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">TRAVEL INSPIRATION</span>
+              <h2>여행의 즐거움을 더하는 아이디어</h2>
+              <p>새로운 장소와 취향을 발견할 수 있는 여행 테마를 만나보세요.</p>
+            </div>
+            <span class="section-number">02 / GET INSPIRED</span>
+          </div>
+
+          <div class="inspiration-grid">
+            <a class="inspiration-card inspiration-large" href="#travel">
+              <img
+                src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=1000&q=85"
+                alt="한국의 도시 풍경" loading="lazy">
+              <span class="inspiration-overlay"></span>
+              <span class="inspiration-content">
+                <small>URBAN EXPLORING</small>
+                <strong>도시 속 새로운 발견</strong>
+                <span>골목과 거리에서 찾는 여행의 재미 ↗</span>
+              </span>
+            </a>
+
+            <a class="inspiration-card" href="#travel">
+              <img
+                src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=85"
+                alt="아시아 여행 거리 풍경" loading="lazy">
+              <span class="inspiration-overlay"></span>
+              <span class="inspiration-content">
+                <small>LOCAL CULTURE</small>
+                <strong>지역의 매력 발견하기</strong>
+                <span>익숙한 곳도 새롭게 ↗</span>
+              </span>
+            </a>
+
+            <a class="inspiration-card" href="#travel">
+              <img
+                src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=85"
+                alt="자연 속에서 즐기는 여행" loading="lazy">
+              <span class="inspiration-overlay"></span>
+              <span class="inspiration-content">
+                <small>SLOW TRAVEL</small>
+                <strong>잠시 쉬어가는 여행</strong>
+                <span>자연과 함께하는 여유 ↗</span>
+              </span>
+            </a>
+          </div>
+
+          <div class="course-heading">
+            <div>
+              <span class="eyebrow">YOUR MINI ITINERARY</span>
+              <h2>추천 여행 코스</h2>
+              <p>여행지를 뽑으면 해당 지역을 바탕으로 코스 아이디어를 보여드려요.</p>
+            </div>
+            <span class="course-heading-icon">✳</span>
+          </div>
+
+          <div class="course-grid" id="courseGrid">
+            <article class="course-card">
+              <span class="course-icon">📸</span>
+              <h3>첫 번째 코스 · 명소</h3>
+              <p>여행지를 뽑으면 추천 명소가 표시됩니다.</p>
+            </article>
+            <article class="course-card">
+              <span class="course-icon">🍜</span>
+              <h3>두 번째 코스 · 먹거리</h3>
+              <p>지역의 대표 먹거리 아이디어를 확인해 보세요.</p>
+            </article>
+            <article class="course-card">
+              <span class="course-icon">🌿</span>
+              <h3>세 번째 코스 · 여유</h3>
+              <p>주변 산책과 여유로운 일정을 계획해 보세요.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="advertise-section page-container" id="advertise">
+        <div class="advertise-card">
+          <div class="advertise-decoration advertise-decoration-one"></div>
+          <div class="advertise-decoration advertise-decoration-two"></div>
+
+          <div class="advertise-copy">
+            <span class="advertise-kicker">
+              <span></span> LUMEA · FOR LOCAL BUSINESSES
+            </span>
+
+            <h2>우리 가게를<br>여행객에게 알려보세요.</h2>
+
+            <p>
+              랜덤코리아와 함께 여행객이 새로운 지역과 장소를 발견하도록 도와주세요.
+              맛집, 카페, 체험 공간 등 다양한 지역 업체의 제휴를 준비하고 있습니다.
+            </p>
+
+            <a class="advertise-button"
+              href="http://pf.kakao.com/_sNvJX"
+              target="_blank" rel="noopener noreferrer">
+              LUMEA 광고·입점 문의 <span>↗</span>
+            </a>
+
+            <small class="advertise-disclaimer">
+              RANDOM KOREA의 광고 및 제휴는 LUMEA가 운영합니다.
+            </small>
+          </div>
+
+          <div class="advertise-visual" aria-hidden="true">
+            <div class="ad-orbit orbit-one"></div>
+            <div class="ad-orbit orbit-two"></div>
+            <div class="ad-center">
+              <span>✳</span>
+              <strong>LOCAL<br>DISCOVERY</strong>
+              <small>POWERED BY LUMEA</small>
+            </div>
+            <div class="ad-floating ad-floating-top">
+              LOCAL<br>BUSINESS
+            </div>
+            <div class="ad-floating ad-floating-bottom">
+              ✦ TRAVEL &amp; TASTE
+            </div>
+          </div>
+        </div>
+
+        <a class="advertiser-contact panel"
+          id="advertiser-contact"
+          href="http://pf.kakao.com/_sNvJX"
+          target="_blank" rel="noopener noreferrer"
+          style="text-decoration:none; color:inherit;"
+          aria-label="LUMEA 카카오톡 채널에서 업체 제휴 문의하기">
+          <div class="contact-icon">✉</div>
+          <div class="contact-copy">
+            <span class="eyebrow">LUMEA PARTNERSHIP</span>
+            <h3>업체 제휴 문의</h3>
+            <p>
+              랜덤코리아 광고, 입점 및 제휴 관련 문의는
+              LUMEA 카카오톡 채널로 보내주세요.
+            </p>
+          </div>
+          <span class="contact-status">LUMEA에 문의하기 ↗</span>
+        </a>
+      </section>
+    </main>
+
+    <footer class="rk-footer">
+      <div class="rk-footer-inner">
+        <section class="rk-footer-brand">
+          <a class="brand" href="#" aria-label="랜덤코리아 홈">
+            <span class="brand-icon">✳</span>
+            <span class="brand-copy">
+              <strong>랜덤코리아</strong>
+              <small>RANDOM KOREA</small>
+            </span>
+          </a>
+
+          <p>
+            새로운 한국 여행지를 발견하는 즐거움,
+            랜덤코리아와 함께하세요.
+          </p>
+
+          <div class="lumea-footer-brand">
+            <span>LUMEA</span>
+            <small>RANDOM KOREA 운영 · 제작</small>
+          </div>
+        </section>
+
+        <nav class="rk-footer-column" aria-label="서비스">
+          <h3>서비스</h3>
+          <a href="#travel">여행지 추천</a>
+          <a href="#courses">여행 아이디어</a>
+          <a href="#advertise">업체 입점</a>
+        </nav>
+
+        <nav class="rk-footer-column" aria-label="문의 및 안내">
+          <h3>문의 및 안내</h3>
+          <a href="http://pf.kakao.com/_sNvJX"
+            target="_blank" rel="noopener noreferrer">
+            광고 및 제휴 문의 ↗
+          </a>
+        </nav>
+
+        <section class="rk-footer-column rk-footer-business">
+          <h3>사업자 정보</h3>
+          <p><strong>상호명</strong> LUMEA</p>
+          <p><strong>대표자명</strong> 김영덕</p>
+          <p><strong>사업자등록번호</strong> 254-05-03948</p>
+          <p>
+            <strong>사업장 소재지</strong><br>
+            인천광역시 미추홀구 제일로40번길 93-35
+          </p>
+        </section>
+      </div>
+
+      <div class="rk-footer-bottom">
+        <span class="footer-copyright">
+          © 2026 RANDOM KOREA · LUMEA
+        </span>
+        <p class="footer-note">
+          여행 정보는 참고용이며,
+          방문 전 운영 시간과 이용 정보를 확인해 주세요.
+        </p>
+      </div>
+    </footer>
+
+    <script src="./auth.js"></script>
+
+    <script>
+      (() => {
+        const count = document.getElementById('demoOnlineCount');
+        let value = 200 + Math.floor(Math.random() * 101);
         count.textContent = value;
-      }, 60000);
-    })();
-  </script>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./data.js"></script>
-  <script src="./main.js"></script>
-</body>
-</html>
+        setInterval(() => {
+          const change = Math.floor(Math.random() * 11) - 5;
+          value = Math.max(200, Math.min(300, value + change));
+          count.textContent = value;
+        }, 5000);
+      })();
+    </script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="./data.js"></script>
+    <script src="./main.js"></script>
+  </body>
+  </html>
