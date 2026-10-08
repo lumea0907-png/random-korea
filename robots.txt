@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xn--qn1b03fk0bhyv7hm.com/sitemap.xml
