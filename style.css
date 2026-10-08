@@ -2746,3 +2746,26 @@ main::after {
     transition: none !important;
   }
 }
+/* 양옆 광고 배너: 스크롤해도 화면에 고정 */
+.side-ad {
+  position: fixed;
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+  z-index: 5;
+}
+
+.side-ad-left {
+  left: 20px;
+}
+
+.side-ad-right {
+  right: 20px;
+}
+
+/* 좁은 화면에서는 본문을 가리지 않도록 숨김 */
+@media (max-width: 1450px) {
+  .side-ad {
+    display: none;
+  }
+}
