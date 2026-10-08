@@ -593,6 +593,24 @@
 .rk-kakao-qr strong {display:block; margin-top:10px; font-size:15px;}
 .rk-kakao-qr span {display:block; margin-top:5px; font-size:12px; line-height:1.6;}
 </style>
+<style>
+.rk-notice {position:fixed; top:100px; left:24px; z-index:10000; width:min(360px,calc(100vw - 32px)); max-height:calc(100dvh - 120px); display:flex; flex-direction:column; overflow:hidden; border:1px solid #8b6b42; border-radius:10px; background:#fffcf7; color:#40372d; box-shadow:0 12px 36px #40372d33; font-family:'Noto Sans KR',sans-serif;}
+.rk-notice-body {padding:28px 24px; overflow:auto; min-height:0;}
+.rk-notice-brand {display:block; text-align:center; letter-spacing:.24em; font-size:11px; color:#8b6b42;}
+.rk-notice h2 {margin:14px 0 22px; padding:0 0 22px; border-bottom:1px solid #b69d7d; text-align:center; font-size:32px; line-height:1.4; color:#40372d;}
+.rk-notice-content {min-height:210px; display:flex; flex-direction:column; justify-content:center; gap:18px; text-align:center;}
+.rk-notice-content p {margin:0; white-space:pre-wrap; overflow-wrap:anywhere; font-size:16px; line-height:1.9;}
+.rk-notice-content img {display:block; width:100%; height:auto;}
+.rk-notice-content small {color:#796c5b; font-size:11px; line-height:1.7;}
+.rk-notice-footer {display:flex; align-items:center; justify-content:space-between; gap:6px; flex-shrink:0; padding:4px 10px; background:#40372d; color:#fff;}
+.rk-notice-footer label {display:flex; align-items:center; gap:6px; min-height:44px; cursor:pointer; font-size:12px;}
+.rk-notice-footer input {width:18px; height:18px; margin:0; accent-color:#8b6b42;}
+.rk-notice-footer button {min-height:44px; padding:6px 8px; border:0; background:transparent; color:#fff; cursor:pointer; font:inherit; font-size:13px;}
+.rk-notice-footer button span {font-size:22px; vertical-align:middle; margin-left:5px;}
+.rk-notice :focus-visible {outline:3px solid #c99b52; outline-offset:2px;}
+@media(max-width:600px) {.rk-notice {top:80px; left:16px; max-height:calc(100dvh - 96px);} .rk-notice-body {padding:22px 20px;} .rk-notice h2 {font-size:28px;} .rk-notice-content {min-height:180px;}}
+
+</style>
 </head>
 
   <body>
@@ -1171,5 +1189,79 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="./data.js"></script>
     <script src="./main.js"></script>
-  </body>
+  <script>
+(() => {
+  'use strict';
+  // 공지 내용을 넣은 뒤 enabled를 true로 바꾸세요.
+  const NOTICE = {
+    enabled: false,
+    id: 'notice-001',
+    title: '공지사항',
+    text: '공지 내용이 들어갈 공간\n내용은 추후 추가됩니다.',
+    imageUrl: '',
+    linkUrl: ''
+  };
+  const preview = new URLSearchParams(location.search).get('notice_preview') === '1';
+  if (!NOTICE.enabled && !preview) return;
+  const key = 'random-korea.notice.' + NOTICE.id + '.hideUntil';
+  try {
+    if (!preview && Number(localStorage.getItem(key)) > Date.now()) return;
+  } catch {}
+  const card = document.createElement('aside');
+  card.className = 'rk-notice';
+  card.setAttribute('aria-labelledby', 'rk-notice-title');
+  card.innerHTML = '<div class="rk-notice-body"><span class="rk-notice-brand">RANDOM KOREA</span><h2 id="rk-notice-title"></h2><div class="rk-notice-content"></div></div><div class="rk-notice-footer"><label><input type="checkbox"> <span>24시간 동안 보지 않기</span></label><button type="button" aria-label="공지사항 닫기">닫기 <span aria-hidden="true">×</span></button></div>';
+  card.querySelector('h2').textContent = NOTICE.title;
+  const content = card.querySelector('.rk-notice-content');
+  function safeUrl(value) {
+    try {
+      const url = new URL(value, location.href);
+      return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
+    } catch { return ''; }
+  }
+  const imageUrl = NOTICE.imageUrl && safeUrl(NOTICE.imageUrl);
+  if (imageUrl) {
+    const image = document.createElement('img');
+    image.src = imageUrl;
+    image.alt = NOTICE.title;
+    const linkUrl = NOTICE.linkUrl && safeUrl(NOTICE.linkUrl);
+    if (linkUrl) {
+      const link = document.createElement('a');
+      link.href = linkUrl;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.append(image);
+      content.append(link);
+    } else content.append(image);
+  }
+  if (NOTICE.text) {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = NOTICE.text;
+    content.append(paragraph);
+  }
+  if (!NOTICE.enabled && preview) {
+    const note = document.createElement('small');
+    note.textContent = '미리보기 · 실제 방문자에게는 표시되지 않습니다.';
+    content.append(note);
+  }
+  const previousFocus = document.activeElement;
+  function close() {
+    if (card.querySelector('input').checked && !preview) {
+      try { localStorage.setItem(key, String(Date.now() + 24 * 60 * 60 * 1000)); } catch {}
+    }
+    document.removeEventListener('keydown', onKey);
+    const restore = card.contains(document.activeElement);
+    card.remove();
+    if (restore && previousFocus?.isConnected) previousFocus.focus();
+  }
+  function onKey(event) {
+    if (event.key === 'Escape') close();
+  }
+  card.querySelector('button').addEventListener('click', close);
+  document.addEventListener('keydown', onKey);
+  document.body.append(card);
+})();
+
+</script>
+</body>
   </html>
