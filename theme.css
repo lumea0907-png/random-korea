@@ -21,13 +21,35 @@
 @media(max-width:1050px){.rk-clean-logo strong{font-size:25px;}.rk-clean-logo svg{width:68px;}.rk-clean-nav{gap:18px;}.site-header.rk-clean-header{gap:12px;padding:10px 20px;}}
 @media(max-width:760px){.site-header.rk-clean-header{grid-template-columns:1fr auto;grid-template-areas:'logo actions' 'nav nav';padding:10px 16px;gap:4px 8px;}.rk-clean-logo{grid-area:logo;}.rk-clean-logo strong{font-size:23px;}.rk-clean-logo svg{width:60px;}.rk-clean-actions{grid-area:actions;gap:2px;}.rk-clean-nav{grid-area:nav;justify-content:space-between;gap:12px;overflow-x:auto;}.rk-clean-nav a,.rk-clean-nav button{font-size:11px;min-height:44px;}.rk-account-panel{max-width:calc(100vw - 32px);min-width:240px;}}
 @media (min-width: 1051px) {
-  /* 팝업이 보이면 소개 영역은 원래 위치 */
-  .poster-hero > .poster-copy {
-    transform: none;
-  }
+/* 팝업을 페이지 맨 앞에 독립적으로 표시 */
+.poster-hero > .poster-notices {
+  position: fixed;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(660px, calc(100% - 32px));
+  min-height: 0 !important;
+  margin: 0;
+  z-index: 10000;
+  pointer-events: none;
+}
 
-  /* 팝업을 모두 닫으면 소개 영역을 위로 이동 */
-  .poster-hero > .poster-notices.no-notices ~ .poster-copy {
+/* 팝업의 버튼과 체크박스 클릭 허용 */
+.poster-notices > .poster-notice {
+  pointer-events: auto;
+}
+
+/* 메인 문구를 지정한 위쪽 위치에 유지 */
+@media (min-width: 1051px) {
+  .poster-hero > .poster-copy {
+    margin-top: 320px !important;
     transform: translateY(-300px);
+  }
+}
+
+/* 모바일 팝업 위치 */
+@media (max-width: 760px) {
+  .poster-hero > .poster-notices {
+    top: 90px;
   }
 }
