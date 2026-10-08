@@ -931,7 +931,7 @@
         : 16;
 
       previousTime = time;
-      offset *= Math.exp(-elapsed / 180);
+      offset *= Math.exp(-elapsed / 350);
 
       if (Math.abs(offset) < 0.1) {
         offset = 0;
