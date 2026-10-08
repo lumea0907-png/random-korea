@@ -904,4 +904,73 @@
   } else {
     start();
   }
+})();/* 양옆 광고 배너 스크롤 따라오기 */
+(() => {
+  function initSideAds() {
+    const ads = document.querySelectorAll(".side-ad");
+    if (!ads.length) return;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+
+    let previousScroll = window.scrollY;
+    let offset = 0;
+    let animationId = null;
+    let previousTime = 0;
+
+    function render() {
+      ads.forEach(ad => {
+        ad.style.setProperty("--ad-offset", `${offset}px`);
+      });
+    }
+
+    function animate(time) {
+      const elapsed = previousTime
+        ? Math.min(time - previousTime, 64)
+        : 16;
+
+      previousTime = time;
+      offset *= Math.exp(-elapsed / 180);
+
+      if (Math.abs(offset) < 0.1) {
+        offset = 0;
+        render();
+        animationId = null;
+        previousTime = 0;
+        return;
+      }
+
+      render();
+      animationId = requestAnimationFrame(animate);
+    }
+
+    window.addEventListener("scroll", () => {
+      const currentScroll = window.scrollY;
+      const difference = currentScroll - previousScroll;
+      previousScroll = currentScroll;
+
+      if (reducedMotion.matches) {
+        offset = 0;
+        render();
+        return;
+      }
+
+      /* 아래로 내릴 때 위쪽에 뒤처졌다가 원위치로 복귀 */
+      offset = Math.max(-60, Math.min(60, offset - difference));
+      render();
+
+      if (animationId === null) {
+        animationId = requestAnimationFrame(animate);
+      }
+    }, { passive: true });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSideAds, {
+      once: true
+    });
+  } else {
+    initSideAds();
+  }
 })();
