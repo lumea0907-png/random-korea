@@ -2769,3 +2769,8 @@ main::after {
     display: none;
   }
 }
+/* 스크롤을 부드럽게 따라오는 광고 배너 */
+.side-ad {
+  transform: translateY(calc(-50% + var(--ad-offset, 0px)));
+  will-change: transform;
+}
