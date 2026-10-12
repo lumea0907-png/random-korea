@@ -1,0 +1,9 @@
+(()=>{
+'use strict';
+const regions=['서울','경기','인천','강원','충청','전라','경상','제주'];
+function url(v){if(!v)return '';if(/^\.\/[a-zA-Z0-9_.-]+$/.test(v))return v;try{const u=new URL(v);return u.protocol==='https:'&&!u.username&&!u.password?u.href:''}catch{return ''}}
+function validate(rows){if(!Array.isArray(rows)||rows.length>5000)throw Error('업체 목록은 최대 5,000개까지 불러올 수 있습니다.');const ids=new Set();return rows.map(x=>{if(!x||typeof x!=='object')throw Error('업체 데이터 형식 오류');let a={};for(const k of ['id','name','area','district','category','title','description','benefit','image','url','booking','start','end']){a[k]=String(x[k]??'').trim();if(a[k].length>2000)throw Error('입력 내용이 너무 깁니다.');}if(!a.id||ids.has(a.id)||!a.name||!regions.includes(a.area))throw Error('업체 ID·이름·지역을 확인하세요.');ids.add(a.id);for(const k of ['url','booking','image'])if(a[k]&&!url(a[k]))throw Error('링크·이미지는 https:// 주소 또는 ./파일명 형식을 사용하세요.');for(const k of ['start','end'])if(a[k]&&(!/^\d{4}-\d{2}-\d{2}$/.test(a[k])||!Number.isFinite(Date.parse(a[k]+'T00:00:00Z'))||new Date(a[k]+'T00:00:00Z').toISOString().slice(0,10)!==a[k]))throw Error('날짜 형식을 확인하세요.');if(a.start&&a.end&&a.start>a.end)throw Error('종료일은 시작일보다 빠를 수 없습니다.');for(const k of ['enabled','hero','directory','real'])a[k]=x[k]===true;a.order=Number(x.order);if(!Number.isInteger(a.order)||a.order<0||a.order>99999)throw Error('순서는 0~99999 정수로 입력하세요.');a.region=[a.area,a.district,a.category].filter(Boolean).join(' · ');return a;});}
+const today=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+const active=(x,d=today())=>x.enabled&&(!x.start||x.start<=d)&&(!x.end||x.end>=d);
+window.RKPartner={regions,url,validate,active,today};
+})();
