@@ -624,6 +624,7 @@
 <link rel="stylesheet" href="./theme.css">
 <style>.side-ad-box{cursor:pointer}.side-ad-box:focus-visible{outline:3px solid #8b643d;outline-offset:4px}</style>
 <link rel="stylesheet" href="./partner-slider.css">
+  <link rel="stylesheet" href="./mobile.css">
 </head>
 
   <body>
@@ -1146,5 +1147,13 @@ box.addEventListener('click',function(e){if(!e.target.closest('a'))location.href
 box.addEventListener('keydown',function(e){if(e.target===box&&(e.key==='Enter'||e.key===' ')){e.preventDefault();location.href='./partners.html';}});
 });
 </script><script src="./partner-slider.js"></script>
+
+<nav class="rk-mobile-bottom-nav" aria-label="모바일 빠른 메뉴">
+  <a href="#" aria-current="page"><span class="rk-nav-icon" aria-hidden="true">⌂</span><span>홈</span></a>
+  <a href="#travel"><span class="rk-nav-icon" aria-hidden="true">🎲</span><span>랜덤 여행</span></a>
+  <a href="#travel"><span class="rk-nav-icon" aria-hidden="true">⌖</span><span>여행 지도</span></a>
+  <a href="#courses"><span class="rk-nav-icon" aria-hidden="true">▤</span><span>여행 가이드</span></a>
+  <a href="./partners.html"><span class="rk-nav-icon" aria-hidden="true">✧</span><span>제휴 업체</span></a>
+</nav>
 </body>
   </html>
