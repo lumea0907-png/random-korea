@@ -1,1 +1,97 @@
-<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>업체 등록·관리 | 랜덤코리아</title><link rel="stylesheet" href="partner-management.css"><main><header><div><small>RANDOM KOREA · PARTNER DESK</small><h1>업체 등록·관리</h1><span class="muted">한 번 등록하고, 배너와 업체 목록에서 함께 사용하세요.</span></div><a class="button" href="./partners.html">업체 목록 보기 ↗</a></header><p class="notice">파일 편집 도구입니다. 변경 내용을 내려받아 GitHub에 업로드해야 사이트에 반영됩니다. 작업 내용은 이 창의 메모리에만 있으며, 닫기 전에 파일을 내려받으세요. 숨긴 업체도 배포 파일에서는 읽을 수 있으니 비공개 정보는 입력하지 마세요.</p><section class="panel"><div class="toolbar"><button id="new">+ 업체 등록</button><button id="import">기존 데이터 불러오기</button><button id="export" class="primary">배포 파일 내려받기</button><input id="file" type="file" accept=".js,.json" hidden></div><p id="message" role="status"></p><small>처음에는 함께 있는 partners-data.js를 읽습니다. 다른 PC에서 작업할 때는 최신 배포 파일을 먼저 불러오세요.</small></section><div class="layout"><section class="panel"><h2>등록 업체 <span id="count"></span></h2><div class="toolbar"><input id="search" placeholder="업체명·지역 검색" aria-label="업체 검색"><select id="filter" aria-label="노출 필터"><option value="all">전체</option><option value="active">현재 노출</option><option value="inactive">숨김·예약·종료</option></select></div><div id="list"></div><div class="toolbar"><button id="prev">이전</button><span id="page"></span><button id="next">다음</button></div></section><section class="panel"><h2 id="formTitle">새 업체 등록</h2><form id="editor"><div class="fields"><label>업체명 *<input id="name" type="text" required maxlength="2000"></label><label>광역 지역 *<select id="area"><option>서울</option><option>경기</option><option>인천</option><option>강원</option><option>충청</option><option>전라</option><option>경상</option><option>제주</option></select></label><label>시·군·구 / 동<input id="district" type="text"  maxlength="2000"></label><label>업종<select id="category"><option>맛집·카페</option><option>숙소</option><option>체험·액티비티</option><option>쇼핑</option><option>기타</option></select></label><label>배너 메인 문구<input id="title" type="text"  maxlength="2000"></label><label>할인·혜택 안내<input id="benefit" type="text"  maxlength="2000"></label><label class="wide">이미지 주소 (https:// 또는 ./파일명)<input id="image" type="text"  maxlength="2000"></label><label class="wide">업체 소개 / 홈페이지 링크<input id="url" type="text"  maxlength="2000"></label><label class="wide">예약 링크<input id="booking" type="text"  maxlength="2000"></label><label class="wide">업체 소개·혜택 이용 조건<textarea id="description" rows="3" maxlength="2000"></textarea></label><label>노출 시작일 (한국 시간)<input id="start" type="date"  maxlength="2000"></label><label>노출 종료일 (당일 포함)<input id="end" type="date"  maxlength="2000"></label><label>노출 순서 (작을수록 먼저)<input id="order" type="number"  min="0" max="99999" step="1" maxlength="2000"></label></div><div class="checks"><label><input id="enabled" type="checkbox" checked> 노출 허용</label><label><input id="hero" type="checkbox" checked> 메인 배너</label><label><input id="directory" type="checkbox" checked> 업체 목록</label><label><input id="real" type="checkbox" checked> 실제 업체</label></div><small>기간을 비우면 제한 없이 노출됩니다. 실제 업체 체크를 해제하면 예시 광고로 표시됩니다.</small><div id="preview" class="preview"></div><button class="primary" type="submit">작업 목록에 저장</button> <button id="cancel" type="button">입력 초기화</button><p class="muted">저장 후 상단 ‘배포 파일 내려받기’를 눌러주세요. 종료된 광고는 페이지를 새로 열 때 자동으로 제외됩니다.</p></form></section></div></main><script src="partners-data.js"></script><script src="partners-common.js"></script><script src="partner-admin.js"></script></html>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>제휴업체 관리 센터 | 랜덤코리아</title>
+  <link rel="stylesheet" href="./partner-admin-v13.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <a class="brand" href="./index.html"><span class="brand-icon">✧</span><span>랜덤코리아<small>PARTNER STUDIO</small></span></a>
+    <div class="side-label">WORKSPACE</div>
+    <a class="side-link is-current" href="./partner-admin.html">▦ <span>업체 등록·관리</span></a>
+    <a class="side-link" href="./partners.html" target="_blank" rel="noopener">↗ <span>공개 업체 목록</span></a>
+    <a class="side-link" href="./index.html" target="_blank" rel="noopener">⌂ <span>홈페이지 보기</span></a>
+    <div class="side-bottom"><span class="status-dot"></span> GitHub Pages 연결형<small>등록 정보는 공개 사이트에 표시됩니다. 비밀번호나 비공개 정보를 입력하지 마세요.</small></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">RANDOM KOREA · PARTNER OPERATIONS</div><h1>제휴업체 관리 센터</h1><p>업체 등록부터 사진 관리, 일괄 업로드, 광고 노출까지 한곳에서.</p></div>
+      <div class="top-actions"><button type="button" id="backupButton" class="button subtle">백업 JSON</button><button type="button" id="exportButton" class="button primary">⬇ GitHub 배포 ZIP</button></div>
+    </header>
+
+    <div class="workflow"><strong>작업 방법</strong><span><b>①</b> 업체 등록·수정</span><span class="arrow">→</span><span><b>②</b> 자동 임시저장</span><span class="arrow">→</span><span><b>③</b> 배포 ZIP 다운로드</span><span class="arrow">→</span><span><b>④</b> GitHub에 파일 업로드</span></div>
+    <div id="notice" class="notice" role="status" aria-live="polite">등록 데이터를 불러오는 중입니다.</div>
+
+    <section class="stats" aria-label="업체 현황">
+      <div class="stat"><small>전체 등록 업체</small><strong id="statTotal">—</strong><span>총 등록 수</span></div>
+      <div class="stat"><small>현재 노출</small><strong id="statActive">—</strong><span>기간·노출 설정 기준</span></div>
+      <div class="stat"><small>메인 광고</small><strong id="statHero">—</strong><span>슬라이드 노출 대상</span></div>
+      <div class="stat"><small>숨김 / 기간 외</small><strong id="statHidden">—</strong><span>관리 중인 업체</span></div>
+    </section>
+
+    <section class="workspace">
+      <section class="panel directory-panel" aria-label="업체 목록">
+        <div class="panel-title-row"><div><div class="eyebrow">PARTNER DIRECTORY</div><h2>등록 업체 <span id="matchedCount"></span></h2></div><button type="button" id="addButton" class="button primary">＋ 신규 업체</button></div>
+        <div class="filters"><input id="search" type="search" placeholder="업체명 · 지역 · 혜택 검색" aria-label="업체 검색"><select id="areaFilter" aria-label="지역 필터"><option value="">전체 지역</option></select><select id="statusFilter" aria-label="노출 필터"><option value="all">전체 상태</option><option value="active">현재 노출</option><option value="hidden">숨김·기간 외</option><option value="hero">메인 광고</option></select></div>
+        <div class="list-meta"><span>업체 선택 후 오른쪽에서 수정</span><span id="draftSource">—</span></div>
+        <div id="partnerList" class="partner-list"></div>
+        <div class="list-footer"><span id="listCount"></span><button type="button" id="loadServerButton" class="button text-button">서버 원본으로 초기화</button></div>
+      </section>
+
+      <section class="panel edit-panel" aria-label="업체 편집">
+        <div class="panel-title-row"><div><div class="eyebrow">PARTNER EDITOR</div><h2 id="editorHeading">새 업체 등록</h2></div><span id="editorPill" class="pill">NEW</span></div>
+        <form id="editor" novalidate>
+          <div class="form-section-title">기본 정보 <small>업체명과 지역은 필수</small></div>
+          <div class="form-grid">
+            <label class="full">업체명 <em>*</em><input id="name" required maxlength="200" placeholder="예: 제주 오션뷰 카페"></label>
+            <label>광역 지역 <em>*</em><select id="area" required></select></label>
+            <label>시·군·구 / 동<input id="district" maxlength="200" placeholder="예: 제주시 애월읍"></label>
+            <label class="full">업종<select id="category"><option>맛집·카페</option><option>숙소</option><option>체험·액티비티</option><option>쇼핑</option><option>기타</option></select></label>
+          </div>
+          <div class="form-section-title">홍보 내용</div>
+          <div class="form-grid">
+            <label class="full">배너 제목<input id="title" maxlength="200" placeholder="예: 제주 바다를 바라보는 감성 카페"></label>
+            <label class="full">할인 / 제공 혜택<input id="benefit" maxlength="400" placeholder="예: 네이버 예약 시 10% 할인"></label>
+            <label class="full">업체 상세 설명<textarea id="description" rows="3" maxlength="2000" placeholder="업체 소개, 혜택 이용 조건 등"></textarea></label>
+            <label class="full">사진 파일 또는 이미지 주소<input id="image" maxlength="2000" placeholder="사진을 업로드하면 경로가 자동 입력됩니다"></label>
+          </div>
+          <div id="imageDrop" class="image-drop" tabindex="0" role="button" aria-label="업체 사진 업로드"><span class="drop-icon">▧</span><strong>사진을 끌어놓거나 클릭해 업로드</strong><small>JPG · PNG · WebP / 최대 8MB / 자동 크기 최적화</small></div>
+          <input id="imageFile" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+          <div class="photo-preview"><img id="photoPreview" alt="업체 사진 미리보기" hidden><span id="photoFallback">등록된 사진이 여기에 표시됩니다.</span></div>
+          <div class="form-section-title">외부 링크</div>
+          <div class="form-grid"><label class="full">인스타그램 / 업체 소개 링크<input id="url" maxlength="2000" placeholder="https://..."></label><label class="full">네이버 예약 / 예약 링크<input id="booking" maxlength="2000" placeholder="https://..."></label></div>
+          <div class="form-section-title">광고 노출 설정</div>
+          <div class="toggles"><label><input type="checkbox" id="enabled" checked> 업체 공개</label><label><input type="checkbox" id="hero" checked> 메인 광고 슬라이드</label><label><input type="checkbox" id="directory" checked> 업체 목록 표시</label><label><input type="checkbox" id="real" checked> 실제 제휴업체</label></div>
+          <div class="form-grid"><label>광고 시작일<input id="start" type="date"></label><label>광고 종료일<input id="end" type="date"></label><label class="full">노출 순서<input id="order" type="number" min="0" max="99999" step="1"></label></div>
+          <div class="form-actions"><button type="submit" id="saveButton" class="button primary">✓ 업체 저장</button><button type="button" id="duplicateButton" class="button subtle" hidden>복제</button><button type="button" id="deleteButton" class="button danger" hidden>삭제</button></div>
+          <p class="helper">‘업체 저장’을 누르면 이 브라우저에 임시 저장됩니다. 사이트 반영은 상단 ‘GitHub 배포 ZIP’으로 진행하세요.</p>
+        </form>
+      </section>
+    </section>
+
+    <section class="bottom-grid">
+      <section class="panel"><div class="eyebrow">BULK IMPORT</div><h2>20개 업체 한 번에 등록</h2><p class="section-desc">엑셀에서 여러 행을 복사해 붙여넣으세요. 첫 줄에 제목이 있어도 자동 인식합니다. CSV / TSV 파일도 불러올 수 있어요.</p>
+        <div class="bulk-actions"><button type="button" id="downloadTemplate" class="button subtle">엑셀 입력 양식 다운로드 (CSV)</button><button type="button" id="chooseBulkFile" class="button subtle">CSV·TSV 파일 선택</button><input type="file" id="bulkFile" accept=".csv,.tsv,text/csv,text/tab-separated-values" hidden></div>
+        <textarea id="bulkText" rows="7" spellcheck="false" placeholder="업체명&#9;지역&#9;시군구&#9;업종&#9;혜택&#9;이미지&#9;소개링크&#9;예약링크&#10;예쁜카페&#9;제주&#9;제주시 애월&#9;맛집·카페&#9;음료 10% 할인&#9;&#9;https://www.instagram.com/...&#9;https://map.naver.com/..."></textarea>
+        <label class="import-choice"><input type="checkbox" id="updateDuplicate"> 같은 업체명·지역·동이 있으면 기존 업체 내용 업데이트 (미체크 시 건너뜀)</label>
+        <button type="button" id="importBulk" class="button primary">＋ 일괄 등록하기</button>
+        <p class="helper">광역 지역: 서울·경기·인천·강원·충청·전라·경상·제주 (대전·세종→충청, 부산·대구·울산→경상). 업체 이미지 파일은 오른쪽 편집창에서 개별 추가할 수 있어요.</p>
+      </section>
+      <section class="panel"><div class="eyebrow">DATA & BACKUP</div><h2>데이터 보관·복구</h2><p class="section-desc">일괄 등록하거나 사진을 추가한 뒤 ZIP을 다운로드하면 데이터 JS와 신규 사진이 한 번에 묶여요.</p>
+        <div class="data-actions"><button type="button" id="importDataButton" class="button subtle">기존 업체 데이터 불러오기</button><input id="importDataFile" type="file" accept=".json,.js,application/json,text/javascript" hidden><button type="button" id="backupButton2" class="button subtle">현재 작업 백업 JSON</button></div>
+        <div class="tip"><b>저장 관련 꼭 알아두기</b><p>자동 임시저장은 현재 브라우저에만 남습니다. 다른 PC에서도 쓰려면 백업 파일을 옮겨야 하며, 사이트에 적용하려면 반드시 GitHub에 배포해야 합니다.</p></div>
+        <div class="tip neutral"><b>보안 안내</b><p>이 페이지는 파일 편집 도구이며 서버 관리자 로그인 시스템이 아닙니다. 비공개 개인정보나 API 키는 입력하지 마세요.</p></div>
+      </section>
+    </section>
+    <footer>RANDOM KOREA · PARTNER STUDIO v13 <span>© LUMEA</span></footer>
+  </main>
+</div>
+<script src="./partners-data.js"></script>
+<script src="./partners-common.js"></script>
+<script src="./partner-admin-v13.js"></script>
+</body>
+</html>
