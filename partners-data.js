@@ -89,7 +89,7 @@ window.RK_PARTNERS = [
     "area": "경상",
     "district": "부산",
     "category": "맛집·카페",
-    "title": "매일 갓 구운 수제 쿠키와 구움과자로 소중한 분들에게 따뜻한 마음을 전해보세요.",
+    "title": "매일 갓 구운 수제 쿠키와 구움과자로 따뜻한 마음을 전해보세요.",
     "description": "",
     "benefit": "",
     "image": "./rk-partner-1792104461898-g7dpr.webp",
