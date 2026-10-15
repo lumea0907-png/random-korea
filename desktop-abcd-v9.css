@@ -80,3 +80,48 @@
   /* Keep the original icon-based mobile account trigger. */
   .rk-account-menu > summary.rk-icon-control svg {display:block;}
 }
+
+/* PC v10: A 영역 실제 제공 사진 */
+@media (min-width: 1101px) {
+  .poster-hero > .rk-hero-aewol-photo {
+    position: absolute;
+    z-index: 2;
+    left: 52%;
+    top: 175px;
+    width: clamp(230px, 23vw, 350px);
+    height: clamp(185px, 19vw, 275px);
+    display: block;
+    overflow: hidden;
+    border: 4px solid rgba(255, 252, 247, .92);
+    border-radius: 17px;
+    box-shadow: 0 15px 45px rgba(54, 37, 21, .24);
+    background: #f8f4ed;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .poster-hero > .rk-hero-aewol-photo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 48px rgba(54, 37, 21, .29);
+  }
+  .rk-hero-aewol-photo > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 59%;
+  }
+  .rk-hero-aewol-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 26px 12px 11px;
+    background: linear-gradient(transparent, rgba(27, 25, 22, .79));
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    text-shadow: 0 1px 6px #0005;
+  }
+}
+@media (max-width: 1100px) {
+  .poster-hero > .rk-hero-aewol-photo { display: none !important; }
+}
