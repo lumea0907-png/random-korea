@@ -1073,7 +1073,8 @@
 <!-- 모바일 전용 스타일: 기존 PC 스타일 뒤에서 적용 -->
 <link href="./mobile.css?v=20261013-v4" rel="stylesheet"/><link href="./mobile-home-a.css?v=20261016" rel="stylesheet"/>
 <link rel="stylesheet" href="./mobile-refine-v7.css?v=20261016">
-<link href="./desktop-abcd-v9.css?v=20261016" rel="stylesheet"/>
+<link href="./desktop-abcd-v9.css?v=20261016-v10" rel="stylesheet"/>
+<link href="./pc-travel-a-v11.css?v=20261016-a1" rel="stylesheet"/>
 </head>
 <body>
 <!-- PC 왼쪽 광고 -->
@@ -1153,7 +1154,7 @@
 <span class="live-dot"></span>
             FIND YOUR KOREA
           </span>
-<span id="demoOnline" title="실제 접속자 집계가 아닌 화면 예시입니다.">
+<span id="demoOnline" title="실시간 집계가 아닌 연출용 숫자입니다.">
             접속자 수
             <strong id="demoOnlineCount">800</strong>명
           </span>
@@ -1259,6 +1260,11 @@
           랜덤 여행지 찾기 <span>›</span>
 </a>
 </div>
+<!-- PC 메인 A 영역: 제주 애월 흑돼지 사진 카드 -->
+<a class="rk-hero-aewol-photo" href="./partner-detail.html?id=partner-2" aria-label="제주 애월 돈몽 흑돼지 본점 상세 보기">
+  <img src="./aewol-black-pork.png" alt="제주 애월 바다 앞에서 촬영한 흑돼지 고기 사진" loading="eager" decoding="async"/>
+  <span class="rk-hero-aewol-caption">제주 애월 흑돼지 맛집 <span aria-hidden="true">↗</span></span>
+</a>
 <!-- 제휴 업체 슬라이드 -->
 <div class="rk-a-partner-label"><span>LOCAL PARTNERS</span><h2>여행지에서 만나는 특별한 혜택</h2><a href="./partners.html">제휴 업체 전체보기 ›</a></div><section aria-label="제휴 업체 광고" aria-roledescription="캐러셀" class="rk-ad-carousel" id="rkPartnerCarousel" role="region">
 <div class="rk-ad-window">
@@ -1323,7 +1329,7 @@
             지역과 테마를 선택하고, 오늘의 여행지를 뽑아보세요.
           </p>
 </div>
-<span class="section-number">01 / DISCOVER</span>
+<div class="rk-a-section-right"><span class="rk-a-flight-line" aria-hidden="true">✈ ┄ ┄ ┄</span><span class="section-number">01 / DISCOVER</span></div>
 </div>
 <div class="workspace">
 <!-- 지도 -->
@@ -1334,13 +1340,30 @@
                 EXPLORE THE MAP
               </span>
 <h2>대한민국 여행 지도</h2>
-<p>지도에서 추천 지역을 확인해 보세요.</p>
+<p>지도를 자유롭게 움직이거나 왼쪽 지역을 선택해 여행의 영감을 찾아보세요.</p>
 </div>
 <span class="status-pill" id="mapStatus">
               지도 연결 중
             </span>
 </div>
-<div aria-label="대한민국 여행 지도" id="map"></div>
+<div class="rk-a-map-stage">
+  <div class="rk-a-region-nav" role="group" aria-label="지도 빠른 이동">
+    <span class="rk-a-region-heading">지역 둘러보기</span>
+    <button type="button" class="rk-a-region-button is-current" data-region="all" aria-pressed="true">전국</button>
+<button type="button" class="rk-a-region-button" data-region="seoul" aria-pressed="false">서울</button>
+<button type="button" class="rk-a-region-button" data-region="gyeonggi" aria-pressed="false">경기</button>
+<button type="button" class="rk-a-region-button" data-region="gangwon" aria-pressed="false">강원</button>
+<button type="button" class="rk-a-region-button" data-region="chungcheong" aria-pressed="false">충청</button>
+<button type="button" class="rk-a-region-button" data-region="jeolla" aria-pressed="false">전라</button>
+<button type="button" class="rk-a-region-button" data-region="gyeongsang" aria-pressed="false">경상</button>
+<button type="button" class="rk-a-region-button" data-region="jeju" aria-pressed="false">제주</button>
+  </div>
+  <div class="rk-a-map-viewport">
+    <div aria-label="대한민국 여행 지도" id="map"></div>
+    <div class="rk-a-map-watermark" aria-hidden="true">DISCOVER KOREA <span>✦</span></div>
+  </div>
+</div>
+<p class="rk-a-map-hint">✦ 지역 버튼은 <strong>지도 위치만 이동</strong>합니다. 추첨 범위는 오른쪽에서 선택해 주세요.</p>
 <div class="map-bottom">
 <div class="map-legend">
 <span class="legend-dot"></span>
@@ -1366,7 +1389,7 @@
 <h2>어디로 떠나볼까요?</h2>
 <p>취향에 맞는 조건을 골라주세요.</p>
 </div>
-<span class="dice-badge">🎲</span>
+<span class="dice-badge" aria-hidden="true">⚄</span>
 </div>
 <div class="control-group">
 <label class="field-label" for="scopeSelect">
@@ -1705,19 +1728,20 @@
 </footer>
 <!-- 기존 로그인 기능 -->
 <script src="./auth.js"></script>
-<!-- 예시 접속자 수: 1분마다 갱신 -->
+<!-- 연출용 숫자: 800~1100 범위, 1분마다 갱신 (실제 방문자 집계 아님) -->
 <script>
     (() => {
       const count = document.getElementById("demoOnlineCount");
       if (!count) return;
-
-      let value = 200 + Math.floor(Math.random() * 101);
-      count.textContent = value;
-
-      setInterval(() => {
-        const change = Math.floor(Math.random() * 11) - 5;
-        value = Math.max(200, Math.min(300, value + change));
-        count.textContent = value;
+      const MIN = 800;
+      const MAX = 1100;
+      let value = MIN + Math.floor(Math.random() * (MAX - MIN + 1));
+      count.textContent = value.toLocaleString("ko-KR");
+      window.setInterval(() => {
+        // 매 갱신마다 조금씩 증감하며 항상 지정 범위를 유지합니다.
+        const change = Math.floor(Math.random() * 41) - 20;
+        value = Math.max(MIN, Math.min(MAX, value + change));
+        count.textContent = value.toLocaleString("ko-KR");
       }, 60000);
     })();
   </script>
@@ -1791,6 +1815,6 @@
 </a>
 </nav>
 <script defer src="./mobile-refine-v7.js?v=20261016"></script>
-<link rel="stylesheet" href="./mobile-partner-connect.css?v=20261016"><script defer src="./partners-common.js"></script><script defer src="./partners-data.js"></script><script defer src="./mobile-partner-connect.js?v=20261016"></script><script defer src="./desktop-abcd-v9.js?v=20261016"></script>
+<link rel="stylesheet" href="./mobile-partner-connect.css?v=20261016"><script defer src="./partners-common.js"></script><script defer src="./partners-data.js"></script><script defer src="./mobile-partner-connect.js?v=20261016"></script><script defer src="./desktop-abcd-v9.js?v=20261016"></script><script defer src="./pc-travel-a-v11.js?v=20261016-a1"></script>
 </body>
 </html>

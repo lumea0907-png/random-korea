@@ -1,0 +1,156 @@
+/* Random Korea | PC travel explorer | Nature mood A | v11
+   Loaded AFTER existing styles. Original map, controls, draw flow remain live.
+   All visual changes are confined to PC desktop travel area.
+*/
+@media (min-width: 1001px) {
+  #travel.travel-section {
+    position: relative;
+    max-width: 1330px;
+    padding: 66px 34px 88px;
+    isolation: isolate;
+  }
+  #travel.travel-section::before {
+    content: "";
+    position: absolute;
+    inset: 20px 0 28px;
+    z-index: -1;
+    pointer-events: none;
+    border: 1px solid rgba(201, 180, 145, .28);
+    border-radius: 33px;
+    background:
+      radial-gradient(ellipse 42% 45% at 14% 54%, rgba(186, 208, 194, .28), transparent 80%),
+      radial-gradient(ellipse 35% 70% at 82% 25%, rgba(236, 208, 163, .26), transparent 85%),
+      linear-gradient(125deg, rgba(255,251,242,.91), rgba(245,238,225,.87)),
+      url('./travel-background.png') center 52% / cover no-repeat;
+    box-shadow: 0 32px 80px rgba(111,81,48,.055);
+  }
+  #travel .section-heading { margin-bottom: 28px; padding: 0 18px; }
+  #travel .section-heading .eyebrow { color: #9b744a; letter-spacing: 2.4px; }
+  #travel .section-heading h2 {
+    font-family: 'Noto Serif KR', serif;
+    color: #392c24; font-weight: 700;
+    font-size: clamp(28px,2.7vw,37px);
+    letter-spacing: -1.1px;
+  }
+  #travel .section-heading p { font-size: 13px; color: #8b7967; }
+  #travel .rk-a-section-right { display: flex; flex-direction:column; gap: 10px; align-items:flex-end; }
+  #travel .rk-a-flight-line { font-size: 24px; letter-spacing: 3px; color: #c2a680; opacity: .8; }
+  #travel .workspace { grid-template-columns: minmax(0,1.35fr) minmax(360px,.82fr); gap: 19px; align-items:stretch; }
+  #travel .workspace > .panel {
+    border: 1px solid rgba(182,154,114,.28);
+    border-radius: 22px;
+    background: rgba(255,252,246,.92);
+    box-shadow: 0 18px 44px rgba(94,70,49,.095), inset 0 1px 0 #fff;
+  }
+  #travel .map-card { padding: 24px 23px 18px; }
+  #travel .control-card { padding: 29px 27px 25px; }
+  #travel .panel-kicker { letter-spacing: 2px; color: #947044; font-size: 10px; }
+  #travel .panel-heading h2, #travel .control-title-row h2 {
+    margin: 9px 0 7px; color: #3f3025;
+    font: 700 23px/1.4 'Noto Serif KR',serif;
+  }
+  #travel .panel-heading p, #travel .control-title-row p { max-width: 420px; line-height:1.65; font-size: 12px; }
+  #travel .status-pill { margin-top: 4px; }
+  #travel .rk-a-map-stage {
+    display: grid;
+    grid-template-columns: 94px minmax(0,1fr);
+    gap: 12px; margin-top: 22px;
+    padding: 12px;
+    border: 1px solid #ddd6c5; border-radius: 18px;
+    background:
+      radial-gradient(circle at 5% 5%,rgba(182,203,186,.40),transparent 40%),
+      linear-gradient(145deg,#eceadd,#f6edda 55%,#dfe9dc);
+    box-shadow: inset 0 2px 10px rgba(74,71,52,.055);
+  }
+  #travel .rk-a-region-nav {
+    display: flex; flex-direction:column; gap: 6px;
+    align-self:stretch; padding: 6px 0;
+  }
+  #travel .rk-a-region-heading {
+    display:block; padding: 5px 3px 10px;
+    color:#806746; font-size: 10px; font-weight:800;
+    text-align:center; letter-spacing:-.3px;
+  }
+  #travel .rk-a-region-button {
+    appearance:none; display:flex; align-items:center; justify-content:center;
+    min-height: 39px; width:100%;
+    border: 1px solid rgba(165,143,114,.35); border-radius: 10px;
+    background:rgba(255,253,247,.90); color:#69543c;
+    font:700 12px 'Noto Sans KR',sans-serif; cursor:pointer;
+    transition:background .18s,border-color .18s,transform .18s;
+  }
+  #travel .rk-a-region-button:hover,
+  #travel .rk-a-region-button:focus-visible {
+    border-color:#997647; background:#fff; transform:translateX(2px);
+    outline-offset:2px;
+  }
+  #travel .rk-a-region-button.is-current {
+    background:linear-gradient(130deg,#967045,#785735);
+    border-color:#85633c; color:#fff9ed;
+    box-shadow:0 4px 9px #7b57302a;
+  }
+  #travel .rk-a-map-viewport { position:relative; min-width:0; min-height: 435px; }
+  #travel #map {
+    width:100%; height:435px; margin:0;
+    border: 1px solid #cbd7c7; border-radius: 13px;
+    background:#dce8e2; box-shadow:0 7px 16px #47503d1f;
+  }
+  #travel .rk-a-map-watermark {
+    position:absolute; z-index:500; bottom:14px; left:16px;
+    background:rgba(255,251,244,.88); border:1px solid #ffffffa8;
+    padding:6px 11px; border-radius: 30px;
+    color:#6d654e; font-size:9px; letter-spacing:1.2px;
+    font-weight:800; pointer-events:none;
+    box-shadow:0 4px 10px #423e311a;
+  }
+  #travel .rk-a-map-watermark span { color:#bd8959; margin-left:6px; }
+  #travel .rk-a-map-hint {
+    margin: 13px 1px 0; color:#928674; font-size: 10px;
+    line-height:1.5;
+  }
+  #travel .rk-a-map-hint strong { color:#80674b; }
+  #travel .map-bottom { margin-top:11px; }
+  #travel .map-notice { margin-bottom:0; }
+  #travel .control-title-row { margin-bottom: 30px; }
+  #travel .dice-badge {
+    width: 52px; height:52px; font-size:27px;
+    border-radius: 18px;
+    background: radial-gradient(circle at 27% 24%,#fdfaf4,#efe2cf);
+    box-shadow:inset 0 1px 0 #fff,0 7px 14px #9b76421a;
+  }
+  #travel .field-label {font-size:13px; margin-bottom:12px; }
+  #travel .control-group {margin-bottom:23px;}
+  #travel .field-select {
+    min-height: 49px; background:#fffdf9;
+    border-radius:12px; border-color:#e6d8c4; font-size:13px;
+  }
+  #travel .theme-button { min-height: 47px; border-radius: 11px; background:#fcfaf6; font-size: 12px; }
+  #travel .party-chip {min-height:45px; border-radius:11px; font-size:12px; background:#fcfaf6; }
+  #travel .theme-button.active, #travel .party-chip.active {
+    background:#efe2cd; color:#78532c; border-color:#c19b65;
+    box-shadow:inset 0 0 0 1px #d7ba8e33;
+  }
+  #travel .draw-button {
+    border-radius:12px; margin-top:auto; min-height:60px;
+    background:linear-gradient(125deg,#a27a48,#79502f);
+    box-shadow:0 12px 24px #8960342b;
+    font-size:15px;
+  }
+  #travel .draw-button:hover { box-shadow:0 15px 27px #89603438; }
+  #travel .draw-status {line-height:1.6; text-align:center; font-size: 10px;}
+  #travel .result-card {margin-top:24px; border-radius:22px;}
+}
+@media (min-width: 1001px) and (max-width: 1220px) {
+  #travel.travel-section {padding-left: 18px; padding-right:18px;}
+  #travel .workspace {grid-template-columns: minmax(0,1.15fr) minmax(340px,.85fr);gap:12px;}
+  #travel .map-card, #travel .control-card {padding:20px 17px;}
+  #travel .rk-a-map-stage {grid-template-columns:75px minmax(0,1fr); gap:7px; padding:8px;}
+  #travel .rk-a-region-button { min-height:38px; }
+  #travel .rk-a-region-heading {font-size:9px;}
+}
+/* Preserve existing mobile / tablet flow and Leaflet size. */
+@media (max-width: 1000px) {
+  #travel .rk-a-region-nav, #travel .rk-a-map-watermark, #travel .rk-a-map-hint, #travel .rk-a-flight-line {display:none!important;}
+  #travel .rk-a-map-stage, #travel .rk-a-map-viewport {display:block; width:100%; min-width:0;}
+  #travel .rk-a-section-right {display:block;}
+}

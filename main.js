@@ -246,6 +246,7 @@
       });
 
       state.mapAvailable = true;
+      window.rkTravelMap = state.map; // PC region quick navigation (v11)
       state.markerLayer = L.layerGroup().addTo(state.map);
       state.highlightLayer = L.layerGroup().addTo(state.map);
 
