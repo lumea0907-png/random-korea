@@ -1073,6 +1073,7 @@
 <!-- 모바일 전용 스타일: 기존 PC 스타일 뒤에서 적용 -->
 <link href="./mobile.css?v=20261013-v4" rel="stylesheet"/><link href="./mobile-home-a.css?v=20261016" rel="stylesheet"/>
 <link rel="stylesheet" href="./mobile-refine-v7.css?v=20261016">
+<link href="./desktop-abcd-v9.css?v=20261016" rel="stylesheet"/>
 </head>
 <body>
 <!-- PC 왼쪽 광고 -->
@@ -1138,8 +1139,10 @@
 <path d="m15 15 6 6"></path>
 </svg>
 </a>
+<div class="rk-desktop-status" id="rkDesktopStatus" aria-label="접속자 안내 및 언어 선택"></div>
 <details class="rk-account-menu">
-<summary aria-label="회원 메뉴 열기" class="rk-icon-control">
+<summary aria-label="로그인 및 회원 메뉴 열기" class="rk-icon-control">
+<span class="rk-desktop-account-text" id="rkDesktopAccountText">로그인 · 회원정보</span>
 <svg aria-hidden="true" fill="none" height="24" stroke="currentColor" stroke-width="1.6" viewbox="0 0 24 24" width="24">
 <circle cx="12" cy="6" r="3.2"></circle>
 <path d="M4.5 21v-3a7.5 7.5 0 0 1 15 0v3z"></path>
@@ -1181,6 +1184,15 @@
 </details>
 </div>
 </header>
+<!-- PC 전용 상시 띠 배너: 문구 및 링크는 아래에서 직접 변경 가능 -->
+<div class="rk-desktop-ribbon" role="region" aria-label="제휴업체 상시 안내">
+  <div class="rk-ribbon-inner">
+    <span class="rk-ribbon-mark" aria-hidden="true">✦</span>
+    <strong>랜덤코리아 제휴업체 모집 중</strong>
+    <span class="rk-ribbon-description">우리 가게를 전국 여행객에게 소개하세요. 신규 업체 입점 상담을 받고 있습니다.</span>
+    <a href="https://pf.kakao.com/_xmXsFX" target="_blank" rel="noopener noreferrer">입점·광고 문의 <span aria-hidden="true">↗</span></a>
+  </div>
+</div>
 <main>
 <!-- 메인 화면 -->
 <section class="poster-hero">
@@ -1284,10 +1296,8 @@
           </figcaption>
 </figure>
 <figure class="poster-photo">
-<img alt="뜻밖의 여행지를 발견하세요" loading="lazy" src="https://images.unsplash.com/photo-1538485399081-7c8a6e3a7b87?auto=format&amp;fit=crop&amp;w=600&amp;q=85"/>
-<figcaption>
-            뜻밖의 여행지를 발견하세요
-          </figcaption>
+<a class="rk-photo-link" href="./partners.html" aria-label="춘천 자유빵집 상세 페이지 보기"><img alt="춘천 자유빵집에서 구운 크루아상과 초콜릿 페이스트리" loading="lazy" src="./jayu-bakery.jpg"/></a>
+<figcaption><a href="./partners.html">춘천 자유빵집 · 갓 구운 빵의 즐거움</a></figcaption>
 </figure>
 <figure class="poster-photo">
 <img alt="자연 속에서 쉬어가는 여행" loading="lazy" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=600&amp;q=85"/>
@@ -1781,5 +1791,6 @@
 </a>
 </nav>
 <script defer src="./mobile-refine-v7.js?v=20261016"></script>
+<link rel="stylesheet" href="./mobile-partner-connect.css?v=20261016"><script defer src="./partners-common.js"></script><script defer src="./partners-data.js"></script><script defer src="./mobile-partner-connect.js?v=20261016"></script><script defer src="./desktop-abcd-v9.js?v=20261016"></script>
 </body>
 </html>

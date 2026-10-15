@@ -50,7 +50,7 @@ window.RK_PARTNERS = [
     "title": "프랑스 감성 담은 크루아상과 바게트",
     "description": "",
     "benefit": "",
-    "image": "https://pcmap.place.naver.com/restaurant/1541994373/photo?from=map&fromPanelNum=1&additionalHeight=76&timestamp=202610130716&locale=ko&svcName=map_pcv5&filterType=%EC%97%85%EC%B2%B4#",
+    "image": "./jayu-bakery.jpg",
     "url": "https://www.instagram.com/jayu.bakeshop?utm_source=ig_web_button_share_sheet&xtok=ZDNlZDc0MzIxNw==",
     "booking": "https://www.instagram.com/jayu.bakeshop?utm_source=ig_web_button_share_sheet&xtok=ZDNlZDc0MzIxNw==",
     "start": "",

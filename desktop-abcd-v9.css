@@ -1,0 +1,82 @@
+/* PC header A/B, D ribbon and C image - 2026-10-16
+   Scoped to desktop. Mobile layout + logic remains unchanged. */
+@media (min-width: 761px) {
+  .site-header.rk-clean-header {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: clamp(14px,1.75vw,26px);
+  }
+  .rk-clean-actions { gap: 9px; }
+  .rk-clean-actions > a.rk-icon-control { display:none !important; }
+  .rk-desktop-status {
+    display:flex; align-items:center; gap:10px;
+    padding:6px 13px; min-height:39px; box-sizing:border-box;
+    border:1px solid #e0d0bf; border-radius:9px;
+    background:#fffaf3; color:#493827;
+  }
+  .rk-desktop-status #demoOnline {
+    display:inline-flex; align-items:center; gap:4px;
+    white-space:nowrap !important; font-size:11px; font-weight:500;
+  }
+  .rk-desktop-status #demoOnline::before {
+    content:""; width:6px; height:6px; border-radius:50%; background:#79956e;
+    margin-right:2px; flex:0 0 auto;
+  }
+  .rk-desktop-status #demoOnline strong {font-weight:800; font-variant-numeric:tabular-nums; color:#8a5d36;}
+  .rk-desktop-status #languageSelect {
+    appearance:auto; width:88px; max-width:88px; min-height:31px;
+    font:inherit; font-size:11px; color:#493827;
+    background:#fff; border:1px solid #e5d9ca; border-radius:6px;
+    padding:3px 2px 3px 7px; cursor:pointer;
+  }
+  .rk-account-menu > summary.rk-icon-control {
+    box-sizing:border-box; display:flex; gap:7px;
+    width:auto; min-width:123px; height:39px; padding:0 12px;
+    background:#8b643d; color:#fffaf3; border:1px solid #8b643d;
+    border-radius:9px; text-align:center; font-size:12px; font-weight:700;
+    white-space:nowrap; cursor:pointer;
+  }
+  .rk-account-menu > summary.rk-icon-control svg { display:none; }
+  .rk-account-menu > summary.rk-icon-control::after {content:"⌄"; margin-left:auto; font-size:14px;}
+  .rk-desktop-account-text {display:inline;}
+  .rk-account-menu[open] > summary {background:#704a2e;}
+  .rk-account-menu .rk-account-panel {top:calc(100% + 10px); z-index:11150;}
+  .rk-desktop-ribbon {
+    display:block; position:sticky; top:0; z-index:10950;
+    background:#6b4932; color:#fff7e9;
+    border-bottom:1px solid #563622;
+    box-shadow:0 2px 9px #39251818;
+  }
+  .rk-ribbon-inner {
+    max-width:1600px; margin:0 auto; width:100%; box-sizing:border-box;
+    min-height:34px; display:flex; align-items:center; justify-content:center;
+    gap:12px; padding:5px 22px; line-height:1.4;
+  }
+  .rk-ribbon-mark {color:#f4cf97; font-size:14px;}
+  .rk-ribbon-inner strong {font-size:11px; letter-spacing:.1px; white-space:nowrap;}
+  .rk-ribbon-description {font-size:11px; color:#f0dcc9;}
+  .rk-ribbon-inner a {color:#ffedcc; font-size:11px; font-weight:750; text-decoration:underline; text-underline-offset:3px; white-space:nowrap;}
+  .rk-ribbon-inner a:hover {color:#fff;}
+  .poster-photo .rk-photo-link {display:block; overflow:hidden;}
+  .poster-photo .rk-photo-link img {width:100%; object-fit:cover; object-position:center 45%;}
+  .poster-photo figcaption a {color:inherit; text-decoration:none;}
+  .poster-photo figcaption a:hover {text-decoration:underline;}
+}
+@media (min-width:761px) and (max-width:1200px) {
+  .rk-clean-logo strong {font-size:25px;}
+  .rk-clean-nav {gap:clamp(8px,1.4vw,16px);}
+  .rk-clean-nav a,.rk-clean-nav button {font-size:11px;}
+  .rk-desktop-status {gap:6px; padding:5px 8px;}
+  .rk-account-menu > summary.rk-icon-control {min-width:110px; padding:0 9px; font-size:11px;}
+  .rk-ribbon-description {font-size:10px;}
+}
+@media (min-width:761px) and (max-width:980px) {
+  .site-header.rk-clean-header {grid-template-columns:auto 1fr;grid-template-areas:"logo actions" "navigation navigation"; row-gap:5px;}
+  .rk-clean-logo{grid-area:logo}
+  .rk-clean-actions{grid-area:actions; justify-content:flex-end;}
+  .rk-clean-nav{grid-area:navigation; justify-content:center;}
+}
+@media (max-width:760px) {
+  .rk-desktop-status, .rk-desktop-ribbon, .rk-desktop-account-text {display:none !important;}
+  /* Keep the original icon-based mobile account trigger. */
+  .rk-account-menu > summary.rk-icon-control svg {display:block;}
+}
