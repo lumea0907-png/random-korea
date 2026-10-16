@@ -1,0 +1,44 @@
+/* Random Korea curated home v15 — intentionally isolated to PC (>1000px). */
+.rk-v15-discover{display:none}
+@media(min-width:1001px){
+  .ideas-section{background:#f1e9df!important;padding:44px 0 76px!important}
+  .ideas-section>.page-container>.section-heading{display:none!important}
+  .rk-v15-discover{display:block}
+  .rk-v15-block{margin:0 0 31px}
+  .rk-v15-block+.rk-v15-block{margin-top:28px}
+  .rk-v15-heading{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:0 0 16px}
+  .rk-v15-eyebrow{display:block;font-size:10px;letter-spacing:2.5px;color:#9b714e;font-weight:800;margin:0 0 7px}
+  .rk-v15-heading h2{font:700 clamp(23px,2vw,30px)/1.3 'Noto Serif KR',serif;color:#3c2c21;margin:0 0 6px;letter-spacing:-.8px}
+  .rk-v15-heading p{font-size:12px;line-height:1.6;color:#8b7966;margin:0}
+  .rk-v15-more{font-size:12px;white-space:nowrap;text-decoration:none;color:#895f38;font-weight:800;padding:11px 0}
+  .rk-v15-more:hover{text-decoration:underline}
+  .rk-v15-dest-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+  .rk-v15-partner-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+  .rk-v15-dest-card,.rk-v15-partner-card{display:block;position:relative;min-width:0;overflow:hidden;text-decoration:none;color:#3d3026;background:#fffdf9;border-radius:14px;border:1px solid #e9ddce;box-shadow:0 4px 14px rgba(64,49,32,.05);transition:transform .2s ease,box-shadow .2s ease}
+  .rk-v15-dest-card:hover,.rk-v15-partner-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(64,49,32,.13)}
+  .rk-v15-dest-card:focus-visible,.rk-v15-partner-card:focus-visible,.rk-v15-more:focus-visible{outline:3px solid #987148;outline-offset:3px}
+  .rk-v15-image{display:block;position:relative;overflow:hidden;background:linear-gradient(135deg,#dae6da,#d7bda4);height:148px}
+  .rk-v15-partner-card .rk-v15-image{height:156px}
+  .rk-v15-image img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+  .rk-v15-dest-card:hover img,.rk-v15-partner-card:hover img{transform:scale(1.04)}
+  .rk-v15-card-body{display:block;position:relative;padding:12px 14px 15px}
+  .rk-v15-card-body strong{display:block;font-size:15px;color:#35291f;font-weight:800;letter-spacing:-.5px;line-height:1.4}
+  .rk-v15-card-body small{display:block;font-size:11px;line-height:1.55;color:#967e69;margin-top:4px;word-break:keep-all}
+  .rk-v15-card-desc{display:block;font-size:11px;color:#796b59;margin-top:3px;line-height:1.4;padding-right:25px;word-break:keep-all}
+  .rk-v15-tag{position:absolute;top:10px;left:10px;display:inline-block;background:#7e5938;color:white;padding:5px 8px;border-radius:7px;font-size:10px;font-weight:700}
+  .rk-v15-card-arrow{position:absolute;right:13px;bottom:16px;display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#956c45;color:#fff;font-size:15px}
+  /* Preserve the existing three large travel idea cards and course functionality. */
+  .ideas-section .inspiration-grid{margin-top:8px;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .ideas-section .inspiration-card,.ideas-section .inspiration-large{height:206px!important;grid-column:auto!important;grid-row:auto!important;border-radius:14px}
+  .ideas-section .course-heading{margin-top:40px;margin-bottom:18px}
+  .ideas-section .course-card{min-height:108px!important;padding:18px!important}
+}
+@media(min-width:1001px) and (max-width:1200px){
+  .rk-v15-dest-grid{gap:10px}.rk-v15-partner-grid{gap:10px}
+  .rk-v15-image{height:125px}.rk-v15-partner-card .rk-v15-image{height:137px}
+  .rk-v15-card-body{padding:11px}.rk-v15-card-body strong{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){.rk-v15-dest-card,.rk-v15-partner-card,.rk-v15-image img{transition:none}}
+
+/* Keep floating desktop ads outside the editorial content on mid-size monitors. */
+@media(min-width:1451px) and (max-width:1650px){.ideas-section>.page-container{max-width:calc(100% - 430px)}}
