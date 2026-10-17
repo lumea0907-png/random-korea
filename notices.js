@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   // 실제 페이지가 준비되면 주소를 넣으세요. 회원 권한은 해당 페이지/서버에서 확인해야 합니다.
-  const LINKS = { coupon: '', event: '' };
+  const LINKS = { coupon: './couponbook.html', event: '' };
   const source = document.currentScript?.src || location.href;
   const art = new URL('./notice-travel-art.png', source).href;
   const preview = new URLSearchParams(location.search).get('notice_preview') === '1';
