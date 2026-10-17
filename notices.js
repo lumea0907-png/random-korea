@@ -14,18 +14,18 @@
 
     const style = document.createElement('style');
     style.textContent = `
-.poster-hero > .poster-notices.rk-notice-pair{position:fixed;inset:84px auto auto 50%;transform:translateX(-50%);width:min(1240px,calc(100vw - 56px));height:auto;max-height:calc(100dvh - 100px);min-height:0!important;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:16px;margin:0;padding:0 0 12px;overflow:auto;z-index:10000;pointer-events:none;scrollbar-width:thin}
+.poster-hero > .poster-notices.rk-notice-pair{position:fixed;inset:136px auto auto 50%;transform:translateX(-50%);width:min(1240px,calc(100vw - 56px));height:auto;max-height:calc(100dvh - 170px);min-height:0!important;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;gap:16px;margin:0;padding:0 0 12px;overflow:auto;z-index:10000;pointer-events:none;scrollbar-width:thin}
 .rk-notice-pair,.rk-notice-pair *{box-sizing:border-box}
-.rk-notice-pair .poster-notice{position:relative;flex:initial;width:auto;min-width:0;max-width:none;min-height:535px;display:flex;align-self:stretch;flex-direction:column;margin:0;background:#fcf7ee;color:#38291e;border:1px solid #967e68;border-radius:18px;box-shadow:0 12px 36px #38291e30;overflow:hidden;pointer-events:auto;text-align:left}
+.rk-notice-pair .poster-notice{position:relative;flex:initial;width:auto;min-width:0;max-width:none;min-height:min(670px,calc(100dvh - 180px));display:flex;align-self:stretch;flex-direction:column;margin:0;background:#fcf7ee;color:#38291e;border:1px solid #967e68;border-radius:18px;box-shadow:0 12px 36px #38291e30;overflow:hidden;pointer-events:auto;text-align:left}
 .rk-notice-pair .poster-notice[hidden],.poster-hero > .rk-notice-pair.no-notices{display:none!important}
 .rk-notice-pair .rk-notice-copy{padding:22px 22px 0;position:relative;z-index:1;flex:1}
 .rk-notice-pair .rk-notice-label{display:inline-block;border-radius:30px;padding:6px 12px;background:#efd8c8;color:#904525;font:600 12px/1.5 'Noto Sans KR',sans-serif;letter-spacing:0}
 .rk-notice-pair h2{margin:15px 0 13px;color:#38291e;font:700 clamp(22px,2vw,29px)/1.42 'Noto Serif KR',serif;letter-spacing:-1.2px;word-break:keep-all}
 .rk-notice-pair h2 em{font-style:normal;color:#a64e2f}
 .rk-notice-pair .rk-notice-text{margin:0;color:#513e30;font:400 13px/1.8 'Noto Sans KR',sans-serif;letter-spacing:-.35px;word-break:keep-all}
-.rk-notice-pair .rk-notice-art{height:148px;flex:0 0 148px;background-repeat:no-repeat;background-size:200% 100%;background-position:left center;margin-top:8px}
+.rk-notice-pair .rk-notice-art{height:216px;flex:0 0 216px;background-repeat:no-repeat;background-size:200% 100%;background-position:left center;margin-top:8px}
 .rk-notice-pair .rk-news-art{background-color:#eee0cd;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}
-.rk-notice-pair .rk-event-art{height:148px;flex:0 0 148px;margin-top:8px;background-size:cover;background-position:center}
+.rk-notice-pair .rk-event-art{height:216px;flex:0 0 216px;margin-top:8px;background-size:cover;background-position:center}
 .rk-notice-pair .rk-notice-actions{padding:0 21px 14px;margin-top:-13px;position:relative;z-index:1;display:grid;gap:6px;align-content:start}
 .rk-notice-pair .rk-notice-cta{display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;padding:10px 12px;border:1px solid #54341e;border-radius:13px;background:#54341e;color:#fff9f0;text-decoration:none;font:700 13px/1.45 'Noto Sans KR',sans-serif;cursor:pointer;box-shadow:none}
 .rk-notice-pair .poster-footer{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 13px;border-top:1px solid #e6d8c7;background:#fbf6ed;color:#513e30}
@@ -33,8 +33,8 @@
 .rk-notice-pair .poster-footer input{appearance:auto;width:15px;height:15px;margin:0;accent-color:#754b30}
 .rk-notice-pair .poster-footer button{min-width:52px;min-height:36px;padding:4px;background:none;border:0;color:#513e30;font:500 11px/1.5 'Noto Sans KR',sans-serif;cursor:pointer;white-space:nowrap}
 .rk-notice-pair :focus-visible{outline:3px solid #b46236;outline-offset:3px}
-@media(max-width:900px){.poster-hero>.poster-notices.rk-notice-pair{width:min(760px,calc(100vw - 32px));grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.rk-notice-pair .poster-notice{min-height:510px}.rk-notice-pair h2{font-size:25px}}
-@media(max-width:620px){.poster-hero>.poster-notices.rk-notice-pair{position:fixed;inset:72px 12px 12px;width:auto;max-height:none;transform:none;display:grid;grid-template-columns:1fr;grid-auto-rows:min-content;gap:14px;padding:0 0 12px;overflow:auto}.rk-notice-pair .poster-notice{width:100%;max-width:440px;justify-self:center;min-height:480px}.rk-notice-pair .rk-notice-copy{padding:20px 22px 0}.rk-notice-pair h2{font-size:27px;margin:13px 0 12px}.rk-notice-pair .rk-notice-text{font-size:13px}.rk-notice-pair .rk-notice-art,.rk-notice-pair .rk-event-art{height:138px;flex-basis:138px}.rk-notice-pair .rk-notice-actions{padding:0 20px 13px}.rk-notice-pair .poster-footer{padding:6px 13px}}
+@media(max-width:900px){.poster-hero>.poster-notices.rk-notice-pair{top:120px;width:min(760px,calc(100vw - 32px));grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.rk-notice-pair .poster-notice{min-height:min(610px,calc(100dvh - 160px))}.rk-notice-pair h2{font-size:25px}}
+@media(max-width:620px){.poster-hero>.poster-notices.rk-notice-pair{position:fixed;inset:104px 12px 12px;width:auto;max-height:none;transform:none;display:grid;grid-template-columns:1fr;grid-auto-rows:min-content;gap:14px;padding:0 0 12px;overflow:auto}.rk-notice-pair .poster-notice{width:100%;max-width:440px;justify-self:center;min-height:min(560px,calc(100dvh - 128px))}.rk-notice-pair .rk-notice-copy{padding:20px 22px 0}.rk-notice-pair h2{font-size:27px;margin:13px 0 12px}.rk-notice-pair .rk-notice-text{font-size:13px}.rk-notice-pair .rk-notice-art,.rk-notice-pair .rk-event-art{height:170px;flex-basis:170px}.rk-notice-pair .rk-notice-actions{padding:0 20px 13px}.rk-notice-pair .poster-footer{padding:6px 13px}}
 @media(prefers-reduced-motion:reduce){.rk-notice-pair *{scroll-behavior:auto}}
 `;
     document.head.append(style);
