@@ -3,7 +3,8 @@
   'use strict';
   const source = document.currentScript?.src || location.href;
   const art = new URL('./notice-travel-art.png', source).href;
-  const couponArt = new URL('./rk-couponbook-vertical.png', source).href;
+  const couponArt = new URL('./notice-coupon-art.png', source).href;
+  const eventArt = new URL('./notice-event-art.png', source).href;
   const preview = new URLSearchParams(location.search).get('notice_preview') === '1';
 
   function start() {
@@ -23,13 +24,8 @@
 .rk-notice-pair h2 em{font-style:normal;color:#a64e2f}
 .rk-notice-pair .rk-notice-text{margin:0;color:#513e30;font:400 13px/1.8 'Noto Sans KR',sans-serif;letter-spacing:-.35px;word-break:keep-all}
 .rk-notice-pair .rk-notice-art{height:148px;flex:0 0 148px;background-repeat:no-repeat;background-size:200% 100%;background-position:left center;margin-top:8px}
-.rk-notice-pair .rk-news-art{background:none!important;background-color:#eee0cd;background-image:linear-gradient(130deg,#f5e9d8,#e3c9a8)!important;display:flex;align-items:center;justify-content:center}
-.rk-notice-pair .rk-coupon-image{height:136px;max-width:96%;object-fit:contain;filter:drop-shadow(0 7px 10px #47321f38)}
-.rk-notice-pair .rk-event-art{height:148px;flex:0 0 148px;margin-top:8px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,#fffaf0 0 42%,#ead9bf 100%);color:#805a38}
-.rk-notice-pair .rk-event-ticket{width:72%;height:88px;border:1px dashed #9b7950;border-radius:12px;background:#fffaf1;box-shadow:0 7px 16px #5637191c;display:flex;align-items:center;justify-content:space-around;position:relative}
-.rk-notice-pair .rk-event-ticket:before,.rk-notice-pair .rk-event-ticket:after{content:'';position:absolute;top:34px;width:18px;height:18px;border-radius:50%;background:#ead9bf}
-.rk-notice-pair .rk-event-ticket:before{left:-10px}.rk-notice-pair .rk-event-ticket:after{right:-10px}
-.rk-notice-pair .rk-ticket-title{font:700 17px/1.4 'Noto Serif KR',serif}.rk-notice-pair .rk-ticket-brand{font:600 8px/1.5 'Noto Sans KR',sans-serif;letter-spacing:1.4px;color:#9a7958}.rk-notice-pair .rk-ticket-plane{font-size:29px;transform:rotate(-15deg)}
+.rk-notice-pair .rk-news-art{background-color:#eee0cd;background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}
+.rk-notice-pair .rk-event-art{height:148px;flex:0 0 148px;margin-top:8px;background-size:cover;background-position:center}
 .rk-notice-pair .rk-notice-actions{padding:0 21px 14px;margin-top:-13px;position:relative;z-index:1;display:grid;gap:6px;align-content:start}
 .rk-notice-pair .rk-notice-cta{display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;padding:10px 12px;border:1px solid #54341e;border-radius:13px;background:#54341e;color:#fff9f0;text-decoration:none;font:700 13px/1.45 'Noto Sans KR',sans-serif;cursor:pointer;box-shadow:none}
 .rk-notice-pair .poster-footer{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 13px;border-top:1px solid #e6d8c7;background:#fbf6ed;color:#513e30}
@@ -46,8 +42,8 @@
 
     const content = [
       {label:'공지사항',title:'어디로 떠날지 고민될 때,<br><em>랜덤코리아</em>',text:'랜덤으로 만나는 새로운 여행지부터<br>그곳의 먹거리와 꼭 가봐야 할 명소까지.<br>다양한 할인 프로모션과 함께<br>더 즐거운 여행을 시작해 보세요.',art:'travel',actions:'<a class="rk-notice-cta" href="#travel" data-travel>랜덤 여행지 뽑기　›</a>'},
-      {label:'회원 전용 혜택',title:'회원가입하고<br><em>할인 쿠폰북 혜택 한가득!</em>',text:'제휴 맛집·카페·숙소의 할인 혜택을<br>쿠폰북 한 곳에서 확인해 보세요.<br>랜덤코리아 회원만 이용할 수 있어요.',art:'coupon',actions:'<a class="rk-notice-cta" href="./couponbook.html">회원 전용 쿠폰북 보기　›</a>'},
-      {label:'새로운 소식 · 응모권 이벤트',title:'1분 회원가입하고<br><em>국내·해외 무료여행 응모권 받자!</em>',text:'국내여행부터 해외여행까지,<br>회원 전용 이벤트에 응모해 보세요.<br>당첨되면 무료 여행의 기회가 찾아옵니다.',art:'event',actions:'<a class="rk-notice-cta" href="#memberAuth" data-event>무료여행 응모권 받기　›</a>'}
+      {label:'회원 전용 혜택',title:'회원가입하고<br><em>할인 쿠폰북 혜택 한가득!</em>',text:'랜덤코리아 회원 전용 쿠폰북에서<br>제휴된 맛집, 카페, 숙박업체의<br>다양한 할인 혜택을 만나보세요.<br>지금 회원가입하고 더 특별한<br>여행을 준비하세요.',art:'coupon',actions:'<a class="rk-notice-cta" href="./couponbook.html">회원 전용 쿠폰북 보기　›</a>'},
+      {label:'새로운 소식 · 응모권 이벤트',title:'1분 회원가입하고<br><em>무료여행 응모권 받자!</em>',text:'국내여행부터 해외여행까지,<br>회원 전용 이벤트에 응모해 보세요.<br>당첨되면 무료 여행의 기회가 찾아옵니다.',art:'event',actions:'<a class="rk-notice-cta" href="#memberAuth" data-event>국내·해외 무료여행 응모하기　›</a>'}
     ];
     const cards=[...host.querySelectorAll('.poster-notice')];
     cards.forEach((card,i)=>{
@@ -58,9 +54,9 @@
       card.classList.remove('dark');
       card.setAttribute('aria-labelledby',titleId);
       const artMarkup=data.art==='coupon'
-        ? `<div class="rk-notice-art rk-news-art" aria-hidden="true"><img class="rk-coupon-image" src="${couponArt}" alt=""></div>`
+        ? `<div class="rk-notice-art rk-news-art" aria-hidden="true" style="background-image:url('${couponArt}')"></div>`
         : data.art==='event'
-          ? '<div class="rk-event-art" aria-hidden="true"><div class="rk-event-ticket"><span><span class="rk-ticket-brand">RANDOM KOREA</span><br><span class="rk-ticket-title">여행 응모권</span></span><span class="rk-ticket-plane">✈</span></div></div>'
+          ? `<div class="rk-event-art" aria-hidden="true" style="background-image:url('${eventArt}')"></div>`
           : '<div class="rk-notice-art" aria-hidden="true"></div>';
       card.innerHTML=`<div class="rk-notice-copy"><span class="rk-notice-label">${data.label}</span><h2 id="${titleId}">${data.title}</h2><p class="rk-notice-text">${data.text}</p></div>${artMarkup}<div class="rk-notice-actions">${data.actions}</div><div class="poster-footer"><label><input type="checkbox">24시간 동안 보지 않기</label><button type="button" data-close aria-label="${data.label} 닫기">닫기 ×</button></div>`;
       if(data.art==='travel') card.querySelector('.rk-notice-art').style.backgroundImage=`url("${art}")`;
