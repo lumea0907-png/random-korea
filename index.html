@@ -1083,26 +1083,25 @@
 .rk-ribbon-coupon-link:focus-visible,.rk-ribbon-contact:focus-visible { outline:2px solid #fff5e8; outline-offset:3px; border-radius:3px; }
 .rk-ribbon-description { min-width:0; }
 .rk-ribbon-contact { flex:0 0 auto; }
-.rk-coupon-ad {
+.rk-coupon-ad-image-only {
   display:block;
+  width:100%;
+  aspect-ratio:2 / 3;
+  padding:0!important;
+  overflow:hidden;
+  border-radius:18px;
+  background:#fbf7ef;
   color:#40372d;
   text-decoration:none;
-  padding:14px 12px 13px;
 }
-.rk-coupon-ad:focus-visible { outline:3px solid #8b643d; outline-offset:4px; }
-.rk-coupon-ad img {
+.rk-coupon-ad-image-only:focus-visible { outline:3px solid #8b643d; outline-offset:4px; }
+.rk-coupon-ad-image-only img {
   display:block;
-  width:88px;
-  height:132px;
+  width:100%;
+  height:100%;
+  margin:0;
   object-fit:contain;
-  margin:0 auto 8px;
 }
-.rk-coupon-ad .side-ad-brand { display:block; font:700 9px/1.35 Georgia,serif; letter-spacing:.08em; color:#8b6b42; }
-.rk-coupon-ad .side-ad-small { display:block; margin:2px 0 6px; font-size:8px; letter-spacing:.06em; color:#9b8b78; }
-.rk-coupon-ad strong { margin:0 0 5px; font:700 18px/1.25 'Noto Serif KR',serif; }
-.rk-coupon-ad p { margin:0 0 10px; font-size:10px; line-height:1.45; }
-.rk-coupon-ad .rk-coupon-cta { display:block; padding:9px 6px; border-radius:9px; background:#8b6b42; color:#fff; font-size:10px; font-weight:800; }
-.rk-coupon-ad:hover .rk-coupon-cta { background:#705332; }
 .poster-shortcuts { grid-template-columns:repeat(6,minmax(0,1fr))!important; }
 @media(max-width:768px){ .rk-ribbon-inner{gap:8px}.rk-ribbon-description{display:none!important}.rk-ribbon-coupon-link{flex:1}.poster-shortcuts{grid-template-columns:repeat(3,minmax(0,1fr))!important}.poster-hero>.rk-a-quick{grid-template-columns:repeat(4,minmax(0,1fr))!important}.rk-a-quick a{font-size:11px!important}.rk-a-quick-icon{width:54px!important;height:54px!important;font-size:24px!important} }
 </style>
@@ -1110,13 +1109,8 @@
 <body>
 <!-- PC 왼쪽 광고 -->
 <aside aria-label="회원 전용 쿠폰북" class="side-ad side-ad-left">
-<a class="side-ad-box rk-coupon-ad" href="./couponbook.html" aria-label="쿠폰북 페이지로 이동">
-<img src="./rk-couponbook-vertical.png" alt="랜덤코리아 세로형 쿠폰북 티켓 미리보기"/>
-<span class="side-ad-brand">RANDOM KOREA</span>
-<span class="side-ad-small">MEMBER BENEFIT</span>
-<strong>쿠폰북</strong>
-<p>회원 전용 제휴 혜택을<br/>모아보세요</p>
-<span class="rk-coupon-cta">쿠폰북 보러가기 →</span>
+<a class="side-ad-box rk-coupon-ad-image-only" href="./couponbook.html" aria-label="쿠폰북 페이지로 이동">
+<img src="./rk-couponbook-vertical.png" alt="랜덤코리아 쿠폰북 티켓"/>
 </a>
 </aside>
 <!-- PC 오른쪽 광고 -->
